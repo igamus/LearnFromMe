@@ -5,8 +5,8 @@ courses_categories = db.Table(
     'courses_categories',
     db.Model.metadata,
     db.Column("id", db.Integer, primary_key=True),
-    db.Column("courses", db.Integer, db.ForeignKey(add_prefix_for_prod("courses.id")), primary_key=True),
-    db.Column('categories', db.Integer, db.ForeignKey(add_prefix_for_prod('categories.id')), primary_key=True)
+    db.Column("course_id", db.Integer, db.ForeignKey(add_prefix_for_prod("courses.id")), primary_key=True),
+    db.Column('category_id', db.Integer, db.ForeignKey(add_prefix_for_prod('categories.id')), primary_key=True)
 )
 
 

@@ -11,16 +11,7 @@ class Category(db.Model):
 
     # columns
     id = db.Column(db.Integer, primary_key=True)
-    development = db.Column(db.Boolean, nullable=False)
-    business = db.Column(db.Boolean, nullable=False)
-    finance = db.Column(db.Boolean, nullable=False)
-    it = db.Column(db.Boolean, nullable=False)
-    productivity = db.Column(db.Boolean, nullable=False)
-    personal_development = db.Column(db.Boolean, nullable=False)
-    design = db.Column(db.Boolean, nullable=False)
-    marketing = db.Column(db.Boolean, nullable=False)
-    health = db.Column(db.Boolean, nullable=False)
-    music = db.Column(db.Boolean, nullable=False)
+    name = db.Column(db.String(100), nullable=False)
 
 
     # relationship attributes
@@ -28,21 +19,13 @@ class Category(db.Model):
     courses_of_category = db.relationship(
         "Category",
         secondary=courses_categories,
-        backpopulates="categories_for_course"
+        back_populates="categories_for_course"
     )
 
 
+    # methods
     def to_dict(self):
         return {
             "id": self.id,
-            "development": self.development,
-            "business": self.business,
-            "finance": self.finance,
-            "it": self.it,
-            "productivity": self.productivity,
-            "personal_development": self.personal_development,
-            "design": self.design,
-            "marketing": self.marketing,
-            "health": self.health,
-            "music": self.music
+            "name": self.name
         }

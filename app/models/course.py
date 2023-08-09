@@ -1,6 +1,7 @@
 from .db import db, add_prefix_for_prod, environment, SCHEMA
 from .shopping_cart import shopping_cart
 from .courses_categories import courses_categories
+from .purchases import purchases
 
 
 class Course(db.Model):
@@ -14,8 +15,8 @@ class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255)) # optional
-    course_image = db.Column(db.String(255)) # optional
-    price = db.Column(db.Integer, nullable=False)
+    course_image = db.Column(db.String(255)) # optional, maybe make not optional later
+    price = db.Column(db.Float(none, decimal_return_scale=2), nullable=False)
     instructor_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False) # relates to user.id
     level = db.Column(db.String(50), nullable=False)
     what_youll_learn = db.Column(db.String(255), nullable=False)
@@ -32,7 +33,12 @@ class Course(db.Model):
     categories_for_course = db.relationship(
         "Category",
         secondary=courses_categories,
-        backpopulates="courses_of_category"
+        back_populates="courses_of_category"
+    )
+    people_who_purchased = db.relationship(
+        "User",
+        secondary=purchases,
+        back_populates="purchased_courses"
     )
 
 

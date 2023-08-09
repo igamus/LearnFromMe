@@ -22,11 +22,16 @@ class User(db.Model, UserMixin):
 
 
     # relationship attributes
-    courses = db.relationship("Course", backpopulates="user", cascade="delete-orphan, all")
+    courses = db.relationship("Course", back_populates="user", cascade="delete-orphan, all")
     courses_in_cart = db.relationship(
         "Course",
         secondary=shopping_cart,
         back_populates="users_with_course_in_cart"
+    )
+    purchased_courses = db.relationship(
+        "Course",
+        secondary=purchases,
+        back_populates="people_who_purchased"
     )
 
     # methods
