@@ -1,7 +1,7 @@
 from app.models import db, Course, environment, SCHEMA
 from sqlalchemy.sql import text
 from .categories import development, business, finance, it, productivity, personal_development, design, marketing, health, music
-from .users import demo, marnie, bobby, buying_andy, dr_octopus
+from .users import demo, marnie, bobbie, buying_andy, dr_octopus
 
 
 def seed_courses():
@@ -30,7 +30,7 @@ def seed_courses():
             "course_video": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
             "users_with_course_in_cart": [buying_andy],
             "categories_for_course": [personal_development],
-            "people_who_purchased": [demo, marnie, boby]
+            "people_who_purchased": [demo, marnie, bobbie]
         },
     ]:
         db.session.add(Course(**course))
