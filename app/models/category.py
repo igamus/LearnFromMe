@@ -1,5 +1,5 @@
 from .db import db, add_prefix_for_prod, environment, SCHEMA
-import .courses_categories from courses_categories
+from .courses_categories import courses_categories
 
 
 class Category(db.Model):
@@ -15,9 +15,8 @@ class Category(db.Model):
 
 
     # relationship attributes
-    user = db.relationship("User", back_populates="categories")
     courses_of_category = db.relationship(
-        "Category",
+        "Course",
         secondary=courses_categories,
         back_populates="categories_for_course"
     )

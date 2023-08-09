@@ -16,7 +16,7 @@ class Course(db.Model):
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255)) # optional
     course_image = db.Column(db.String(255)) # optional, maybe make not optional later
-    price = db.Column(db.Float(none, decimal_return_scale=2), nullable=False)
+    price = db.Column(db.Float(decimal_return_scale=2), nullable=False)
     instructor_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False) # relates to user.id
     level = db.Column(db.String(50), nullable=False)
     what_youll_learn = db.Column(db.String(255), nullable=False)
@@ -25,16 +25,19 @@ class Course(db.Model):
 
     # relationship attributes
     user = db.relationship("User", back_populates="courses")
+
     users_with_course_in_cart = db.relationship(
         "User",
         secondary=shopping_cart,
         back_populates="courses_in_cart"
     )
+
     categories_for_course = db.relationship(
         "Category",
         secondary=courses_categories,
         back_populates="courses_of_category"
     )
+
     people_who_purchased = db.relationship(
         "User",
         secondary=purchases,

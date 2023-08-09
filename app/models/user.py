@@ -1,5 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from .shopping_cart import shopping_cart
+from .purchases import purchases
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
@@ -23,11 +24,13 @@ class User(db.Model, UserMixin):
 
     # relationship attributes
     courses = db.relationship("Course", back_populates="user", cascade="delete-orphan, all")
+
     courses_in_cart = db.relationship(
         "Course",
         secondary=shopping_cart,
         back_populates="users_with_course_in_cart"
     )
+
     purchased_courses = db.relationship(
         "Course",
         secondary=purchases,
