@@ -9,5 +9,6 @@ shopping_cart = db.Table(
     db.Column('courses', db.Integer, db.ForeignKey(add_prefix_for_prod('courses.id')), primary_key=True)
 )
 
+
 if environment == "production":
     shopping_cart.schema = SCHEMA

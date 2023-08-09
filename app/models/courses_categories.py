@@ -9,5 +9,6 @@ courses_categories = db.Table(
     db.Column('categories', db.Integer, db.ForeignKey(add_prefix_for_prod('categories.id')), primary_key=True)
 )
 
+
 if environment == "production":
     courses_categories.schema = SCHEMA

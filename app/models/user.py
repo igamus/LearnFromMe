@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .shopping_cart import shopping_cart
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
@@ -9,6 +10,7 @@ class User(db.Model, UserMixin):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
+
     # columns
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
@@ -18,8 +20,14 @@ class User(db.Model, UserMixin):
     user_bio = db.Column(db.String(255)) # optional
     expertises = db.Column(db.String(255)) # optional
 
+
     # relationship attributes
     courses = db.relationship("Course", backpopulates="user", cascade="delete-orphan, all")
+    courses_in_cart = db.relationship(
+        "Course",
+        secondary=shopping_cart,
+        back_populates="users_with_course_in_cart"
+    )
 
     # methods
     @property

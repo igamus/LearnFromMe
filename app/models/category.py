@@ -1,4 +1,5 @@
 from .db import db, add_prefix_for_prod, environment, SCHEMA
+import .courses_categories from courses_categories
 
 
 class Category(db.Model):
@@ -6,6 +7,7 @@ class Category(db.Model):
 
     if environment == "production":
         __table_args__ = {"schema": SCHEMA}
+
 
     # columns
     id = db.Column(db.Integer, primary_key=True)
@@ -20,9 +22,15 @@ class Category(db.Model):
     health = db.Column(db.Boolean, nullable=False)
     music = db.Column(db.Boolean, nullable=False)
 
+
     # relationship attributes
-    # user = db.relationship("User", back_populates="")
-    # only many-to-many for these
+    user = db.relationship("User", back_populates="categories")
+    courses_of_category = db.relationship(
+        "Category",
+        secondary=courses_categories,
+        backpopulates="categories_for_course"
+    )
+
 
     def to_dict(self):
         return {
