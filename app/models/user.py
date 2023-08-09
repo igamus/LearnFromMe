@@ -9,11 +9,19 @@ class User(db.Model, UserMixin):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
+    # columns
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
+    user_image = db.Column(db.String(255)) # make not nullable later...
+    user_bio = db.Column(db.String(255)) # optional
+    expertises = db.Column(db.String(255)) # optional
 
+    # relationship attributes
+    courses = db.relationship("Course", backpopulates="user", cascade="delete-orphan, all")
+
+    # methods
     @property
     def password(self):
         return self.hashed_password
