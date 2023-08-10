@@ -1,11 +1,19 @@
-from flask import Blueprint, jsonify # session, request
+from flask import Blueprint, jsonify, request # session
+from flask_login import current_user
 from app.models import Course, Category, db # User db, Reaction
-# from ..forms import CreateChannelForm
+from ..forms.create_course_form import CreateCourse
+from .auth_routes import validation_errors_to_error_messages
 
 course_routes = Blueprint("course", __name__)
 
+
+@course_routes.route("/course/<int:courseId>", methods=["DELETE"])
+def delete_course(courseId):
+    pass
+
+
 @course_routes.route("/course/<int:courseId>")
-def course(courseId):
+def get_course(courseId):
     """
     Returns the details of the provided course
     """
@@ -15,7 +23,7 @@ def course(courseId):
 
 
 @course_routes.route("/<int:categoryId>")
-def all_courses_of_category(categoryId):
+def get_all_courses_of_category(categoryId):
     """
     Returns a list of all courses in a given category
     """
@@ -40,13 +48,36 @@ def all_courses_of_category(categoryId):
 #     courses = [course.to_dict() for course in category.courses_of_category]
 #     return jsonify(courses), 200
 
+
 @course_routes.route("/", methods=["POST"])
 def create_course():
-    pass
+    """
+    Creates a new course
+    """
+    current_user_id = current_user.id
+    print("current_user_id:")
+    print(current_user_id)
+    form = CreateCourse()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    if form.validate_on_submit():
+        course = Course(
+            name=form.data["name"],
+            description=form.data["description"],
+            course_image=form.data["course_image"],
+            price=form.data["price"],
+            instructor_id=current_user_id,
+            level=form.data["level"],
+            what_youll_learn=form.data["what_youll_learn"],
+            course_video=form.data["course_video"]
+        )
+        db.session.add(course)
+        db.session.commit()
+        return course.to_dict()
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
 
 @course_routes.route("/")
-def all_courses():
+def get_all_courses():
     """
     Returns a list of all courses
     """
