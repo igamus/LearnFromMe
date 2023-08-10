@@ -11,5 +11,3 @@ class CourseForm(FlaskForm):
     level = StringField("level", validators=[DataRequired(message="Must describe proficiency level")])
     what_youll_learn = StringField("what_youll_learn", validators=[DataRequired(message="Must describe course contract")])
     course_video = StringField("course_video", validators=[DataRequired(message="You must include your course!")]) # integrate with aws
-
-# reuse in edit -- not sure you need to build out a new one, if so --- rename to course form

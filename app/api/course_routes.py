@@ -1,6 +1,6 @@
-from flask import Blueprint, jsonify, request # session
+from flask import Blueprint, jsonify, request
 from flask_login import current_user
-from app.models import Course, Category, db # User db, Reaction
+from app.models import Course, Category, db
 from ..forms.course_form import CourseForm
 from .auth_routes import validation_errors_to_error_messages
 
