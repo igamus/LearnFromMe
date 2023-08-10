@@ -1,15 +1,17 @@
 from flask import Blueprint, jsonify, request
-from flask_login import current_user
+from flask_login import current_user, login_required
 from app.models import Course, Category, db
 from ..forms.course_form import CourseForm
 from .auth_routes import validation_errors_to_error_messages
+from .aws_helpers import upload_photo_file_to_s3, upload_video_file_to_s3, get_unique_filename, remove_image_file_from_s3, remove_video_file_from_s3
 
 
 course_routes = Blueprint("course", __name__)
 
 
 @course_routes.route("/course/<int:course_id>", methods=["PUT"])
-def update_course(course_id):
+@login_required
+def update_course(course_id): # need to update the edit of this
     """
     Updates the course of the specified id
     """
@@ -26,7 +28,7 @@ def update_course(course_id):
     if form.validate_on_submit():
         course.name = form.data["name"]
         course.description = form.data["description"]
-        course.course_image = form.data["course_image"]
+        course.course_image = form.data["course_image"] # update image file?
         course.price = form.data["price"]
         course.level = form.data["level"]
         course.what_youll_learn = form.data["what_youll_learn"]
@@ -43,6 +45,7 @@ def update_course(course_id):
 
 
 @course_routes.route("/course/<int:course_id>", methods=["DELETE"])
+@login_required
 def delete_course(course_id):
     """
     Deletes the course of the specified id
@@ -81,6 +84,7 @@ def get_all_courses_of_category(category_id):
 
 
 @course_routes.route("/", methods=["POST"])
+@login_required
 def create_course():
     """
     Creates a new course
@@ -89,16 +93,41 @@ def create_course():
     form = CourseForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
+        course_image = form.data["course_image"]
+        course_image.filename = get_unique_filename(course_image.filename)
+        image_upload = upload_photo_file_to_s3(course_image)
+        print(image_upload)
+
+        if "url" not in image_upload:
+            # if the dictionary has no url key, there was an error
+            return {"errors": validation_errors_to_error_messages(image_upload)} # need to test
+
+        course_image_url = image_upload["url"]
+
+
+        course_video = form.data["course_video"]
+        course_video.filename = get_unique_filename(course_video.filename)
+        video_upload = upload_video_file_to_s3(course_video)
+        print(video_upload)
+
+        if "url" not in video_upload:
+            # if the dictionary has no url key, there was an error
+            return {"errors": validation_errors_to_error_messages(video_upload)} # need to test
+
+        course_video_url = video_upload["url"]
+
+
         course = Course(
             name=form.data["name"],
             description=form.data["description"],
-            course_image=form.data["course_image"],
+            course_image=course_image_url,
             price=form.data["price"],
             instructor_id=current_user_id,
             level=form.data["level"],
             what_youll_learn=form.data["what_youll_learn"],
-            course_video=form.data["course_video"]
+            course_video=course_video_url
         )
+
         db.session.add(course)
         db.session.commit()
         return course.to_dict()
