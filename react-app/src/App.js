@@ -9,6 +9,7 @@ import CustomError from "./components/CustomError";
 import CoursePage from "./components/CoursePage";
 import CategoryCourses from "./components/CategoryCourses";
 import ViewAllCourses from "./components/ViewAllCourses";
+import CreateCourse from "./components/CreateCourse";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,9 @@ function App() {
           </Route>
           <Route exact path="/courses/:categoryId">
             <CategoryCourses />
+          </Route>
+          <Route exact path="/courses/new">
+            <CreateCourse />
           </Route>
           <Route exact path="/courses">
             <ViewAllCourses />

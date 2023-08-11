@@ -12,7 +12,6 @@ class CourseForm(FlaskForm):
     price = IntegerField("Price", validators=[DataRequired(), NumberRange(min=0, message="Price must be more than 0")])
     level = StringField("Familiarity Level", validators=[DataRequired(message="Must describe proficiency level")])
     what_youll_learn = StringField("what You'll Learn", validators=[DataRequired(message="Must describe course contract")])
-    course_video = StringField("Course Video", validators=[DataRequired(message="You must include your course!")]) # integrate with aws
-    # course_video = StringField("course_video", validators=[DataRequired(message="You must include your course!")]) # integrate with aws
-    course_image = FileField("Course Video", validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS_VIDEO))])
+    # course_video = StringField("Course Video", validators=[DataRequired(message="You must include your course!")]) # integrate with aws
+    course_video = FileField("Course Video", validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS_VIDEO))])
     submit = SubmitField("Submit")
