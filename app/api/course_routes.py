@@ -73,6 +73,30 @@ def get_course(course_id):
     return jsonify(course), 200
 
 
+# horribly inefficient?
+@course_routes.route("/all")
+def get_all_courses_organized():
+    """
+    Returns a list of all courses, organized into categories
+    """
+    courses = Course.query.all()
+    categories = Category.query.all()
+    organized_courses = {category.to_dict()["name"]: [] for category in categories}
+    organized_courses["Other"] = []
+    for course in courses:
+        course_d = course.to_dict()
+        categories = course.categories_for_course
+        if categories:
+            for category in categories:
+                cat_key = category.to_dict()
+                organized_courses[cat_key["name"]].append(course_d)
+        else:
+            organized_courses["Other"].append(course_d)
+
+    return organized_courses
+
+
+
 @course_routes.route("/<int:category_id>")
 def get_all_courses_of_category(category_id):
     """
@@ -134,7 +158,7 @@ def create_course():
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
 
-@course_routes.route("/")
+@course_routes.route("/") # won't need this
 def get_all_courses():
     """
     Returns a list of all courses

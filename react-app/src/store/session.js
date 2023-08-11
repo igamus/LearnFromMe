@@ -1,7 +1,8 @@
-// constants
-const SET_USER = "session/SET_USER";
-const REMOVE_USER = "session/REMOVE_USER";
+// action types
+const SET_USER = "learnfromme/session/SET_USER";
+const REMOVE_USER = "learnfromme/session/REMOVE_USER";
 
+// action creators
 const setUser = (user) => ({
 	type: SET_USER,
 	payload: user,
@@ -11,6 +12,7 @@ const removeUser = () => ({
 	type: REMOVE_USER,
 });
 
+// thunk action creators
 const initialState = { user: null };
 
 export const authenticate = () => async (dispatch) => {
@@ -94,6 +96,7 @@ export const signUp = (username, email, password) => async (dispatch) => {
 	}
 };
 
+// reducer
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER:
