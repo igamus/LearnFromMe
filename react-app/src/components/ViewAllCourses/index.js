@@ -9,12 +9,17 @@ function ViewAllCourses() {
         dispatch(readAllCoursesThunk());
     }, [dispatch]);
 
-    const courses = useSelector(state => Object.values(state.courses.allCourses));
-    console.log("courses:", courses)
+    const allCourses = useSelector(state => Object.values(state.courses.allCourses));
 
     return (
         <div>
-            Hi
+            {allCourses.map(course => (
+                <div>
+                    <h2>{course.name} by {course.instructor.name}</h2>
+                    <h3>{course.category}</h3>
+                    <p>{course.description}</p>
+                </div>
+            ))}
         </div>
     );
 };

@@ -2,6 +2,7 @@
 const READ_SINGLE_COURSE = "learnfromme/courses/READ_SINGLE_COURSE";
 const READ_CATEGORY_COURSES = "learnfromme/courses/READ_CATEGORY_COURSES";
 const READ_ALL_COURSES = "learnfromme/courses/READ_ALL_COURSES";
+const READ_ALL_COURSES_ORGANIZED = "learnfromme/courses/READ_ALL_COURSES_ORGANIZED";
 
 // action creators
 const readSingleCourseAction = course => ({
@@ -16,6 +17,11 @@ const readCategoryCoursesAction = courses => ({
 
 const readAllCoursesAction = courses => ({
     type: READ_ALL_COURSES,
+    courses
+});
+
+const readAllCoursesOrganizedAction = courses => ({
+    type: READ_ALL_COURSES_ORGANIZED,
     courses
 });
 
@@ -46,11 +52,23 @@ export const readCategoryCoursesThunk = categoryId => async dispatch => {
 };
 
 export const readAllCoursesThunk = () => async dispatch => {
-    const res = await fetch("/api/courses/all");
+    const res = await fetch("/api/courses/");
 
     if (res.ok) {
         const data = await res.json();
         return dispatch(readAllCoursesAction(data));
+    } else {
+        const errors = await res.json();
+        return errors;
+    }
+};
+
+export const readAllCoursesOrganizedThunk = () => async dispatch => {
+    const res = await fetch("/api/courses/all");
+
+    if (res.ok) {
+        const data = await res.json();
+        return dispatch(readAllCoursesOrganizedAction(data));
     } else {
         const errors = await res.json();
         return errors;
@@ -70,7 +88,6 @@ function courseReducer(state = initialState, action) {
             return newState;
         }
         case READ_CATEGORY_COURSES: {
-            console.log("in thunk:", action)
             let newState = {
                 ...state,
                 categoryCourses: {}
@@ -80,15 +97,26 @@ function courseReducer(state = initialState, action) {
             );
             return newState;
         }
-        case READ_ALL_COURSES: { // not sure about this whole process, might nuke this branch since it's so involved...
+        case READ_ALL_COURSES: {
+            let newState = {
+                ...state,
+                allCourses: {}
+            }
+            action.courses.forEach(
+                course => newState.allCourses[course.id] = course
+            );
+            return newState;
+        }
+        case READ_ALL_COURSES_ORGANIZED: { // not sure about this whole process, might nuke this branch since it's so involved...
             let newState = {
                 ...state,
                 allCourses: {}
             };
-            console.log('action:', action)
-            // action.courses.forEach(
-            //     category => newState.allCourses[category] =  {...category }
-            // );
+            const categories = action.courses;
+            console.log('action:', categories)
+            for (const category in categories) {
+                newState.allCourses[category] = [...categories[category]];
+            }
             return newState;
         }
         default: {
