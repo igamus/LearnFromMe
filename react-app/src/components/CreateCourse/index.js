@@ -4,11 +4,13 @@ function CreateCourse() {
     const starterForm = {
         name: "",
         description: "",
-        courseImage: "",
+        courseImage: null,
         price: "",
         level: "",
-        whatYoullLearn: "",
-        courseVideo: ""
+        whatYoullLearn1: "",
+        whatYoullLearn2: "",
+        whatYoullLearn3: "",
+        courseVideo: null
     };
 
     return (
