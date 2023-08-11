@@ -3,6 +3,7 @@ const READ_SINGLE_COURSE = "learnfromme/courses/READ_SINGLE_COURSE";
 const READ_CATEGORY_COURSES = "learnfromme/courses/READ_CATEGORY_COURSES";
 const READ_ALL_COURSES = "learnfromme/courses/READ_ALL_COURSES";
 const READ_ALL_COURSES_ORGANIZED = "learnfromme/courses/READ_ALL_COURSES_ORGANIZED";
+const CREATE_COURSE = "learnfromme/courses/CREATE_COURSE"
 
 // action creators
 const readSingleCourseAction = course => ({
@@ -23,6 +24,11 @@ const readAllCoursesAction = courses => ({
 const readAllCoursesOrganizedAction = courses => ({
     type: READ_ALL_COURSES_ORGANIZED,
     courses
+});
+
+const createCourseAction = course => ({
+    type: CREATE_COURSE,
+    course
 });
 
 // thunk action creators
@@ -75,6 +81,24 @@ export const readAllCoursesOrganizedThunk = () => async dispatch => {
     }
 };
 
+export const createCourseThunk = formData => async dispatch => {
+    console.log("yes, this changed again");
+    console.log("Great")
+    console.log("gonna send to create");
+    const res = await fetch("/api/courses/", {
+        method: "POST",
+        body: formData
+    });
+    console.log("we did it?")
+
+    if (res.ok) {
+        const resCourse = await res.json();
+        dispatch(createCourseAction(resCourse));
+    } else {
+        return console.log("There was an error creating the course.")
+    }
+};
+
 // reducer
 const initialState = { singleCourse: {}, categoryCourses: {}, allCourses: {} };
 
@@ -113,10 +137,18 @@ function courseReducer(state = initialState, action) {
                 allCourses: {}
             };
             const categories = action.courses;
-            console.log('action:', categories)
             for (const category in categories) {
                 newState.allCourses[category] = [...categories[category]];
             }
+            return newState;
+        }
+        case CREATE_COURSE: { // almost certainly dont need to handle this in the reducer, right?
+            let newState = {
+                ...state,
+            }
+            newState.singleCourse = { ...action.course };
+            // newState.categoryCourses[action.course.category]
+            // allCourses all -- not organized...
             return newState;
         }
         default: {

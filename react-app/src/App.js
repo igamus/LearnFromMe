@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
@@ -23,9 +24,9 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route exact path="/courses/new">
+          <ProtectedRoute exact path="/courses/new">
             <CreateCourse />
-          </Route>
+          </ProtectedRoute>
           <Route exact path="/courses/course/:courseId">
             <CoursePage />
           </Route>

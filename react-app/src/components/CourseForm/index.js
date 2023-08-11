@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { createCourseThunk } from "../../store/courses";
 
 function CourseForm({ type, starterForm }) {
+    console.log("type:", type)
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -23,6 +25,19 @@ function CourseForm({ type, starterForm }) {
         e.preventDefault();
 
         // need error handling, including an error state
+        const whatYoullLearn = [whatYoullLearn1];
+        if (whatYoullLearn2.length) whatYoullLearn.push(whatYoullLearn2);
+        if (whatYoullLearn3.length) whatYoullLearn.push(whatYoullLearn3);
+
+        console.log({
+            name,
+            courseImage,
+            description,
+            price,
+            level,
+            course_video: courseVideo,
+            whatYoullLearn: whatYoullLearn.join("|")
+        });
 
         const formData = new FormData();
         formData.append("name", name);
@@ -30,15 +45,17 @@ function CourseForm({ type, starterForm }) {
         formData.append("course_image", courseImage); //keys here should be the same as wtform class
         formData.append("price", price);
         formData.append("level", level);
-        formData.append("what_youll_learn", [whatYoullLearn1, whatYoullLearn2, whatYoullLearn3].join("|"));
+        formData.append("what_youll_learn", whatYoullLearn.join("|"));
         formData.append("course_video", courseVideo);
         setImageLoading(true); // when does this turn false?
         if (type === "create") {
+            console.log("in if");
             try {
-                // await dispatch()
-                // history.push("") // push somewhere
+                await dispatch(createCourseThunk(formData));
+                history.push("/courses/");
             } catch(e) {
                 // do stuff with e
+                console.log("errors:", e)
             }
         }
     };
@@ -77,7 +94,7 @@ function CourseForm({ type, starterForm }) {
                     accept="image/*"
                 />
 
-                <label htmlFor="price">Price</label>
+                <label htmlFor="price">Price $</label>
                 <input
                     id="price"
                     placeholder="Price"
@@ -102,22 +119,22 @@ function CourseForm({ type, starterForm }) {
                     id="whatyoulllearn1"
                     placeholder="Tell people what they'll learn!"
                     type="text"
-                    value={level}
-                    onChange={e => setLevel(e.target.value)}
+                    value={whatYoullLearn1}
+                    onChange={e => setWhatYoullLearn1(e.target.value)}
                 />
                 <input
                     id="whatyoulllearn2"
                     placeholder="Add another takeaway (optional)"
                     type="text"
-                    value={level}
-                    onChange={e => setLevel(e.target.value)}
+                    value={whatYoullLearn2}
+                    onChange={e => setWhatYoullLearn2(e.target.value)}
                 />
                 <input
                     id="whatyoulllearn3"
                     placeholder="Add another takeaway (optional)"
                     type="text"
-                    value={level}
-                    onChange={e => setLevel(e.target.value)}
+                    value={whatYoullLearn3}
+                    onChange={e => setWhatYoullLearn3(e.target.value)}
                 />
 
                 <label htmlFor="course-video">Upload your course!</label>
