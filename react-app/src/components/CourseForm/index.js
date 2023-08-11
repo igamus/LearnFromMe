@@ -11,7 +11,7 @@ function CourseForm({ type, starterForm }) {
 
     return (
         <div>
-
+            Hi
         </div>
     );
 };

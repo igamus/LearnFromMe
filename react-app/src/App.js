@@ -23,14 +23,14 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route exact path="/courses/new">
+            <CreateCourse />
+          </Route>
           <Route exact path="/courses/course/:courseId">
             <CoursePage />
           </Route>
           <Route exact path="/courses/:categoryId">
             <CategoryCourses />
-          </Route>
-          <Route exact path="/courses/new">
-            <CreateCourse />
           </Route>
           <Route exact path="/courses">
             <ViewAllCourses />

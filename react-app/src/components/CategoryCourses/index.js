@@ -16,7 +16,9 @@ function CategoryCourses() {
     return (
         <div>
             {courses.map(course => (
-                <h2>{course.name}</h2>
+                <div key={course.id}>
+                    <h2>{course.name}</h2>
+                </div>
             ))}
         </div>
     );

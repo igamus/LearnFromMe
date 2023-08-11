@@ -14,7 +14,7 @@ function ViewAllCourses() {
     return (
         <div>
             {allCourses.map(course => (
-                <div>
+                <div key={course.id}>
                     <h2>{course.name} by {course.instructor.name}</h2>
                     <h3>{course.category}</h3>
                     <p>{course.description}</p>
