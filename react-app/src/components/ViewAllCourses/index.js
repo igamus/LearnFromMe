@@ -17,6 +17,7 @@ function ViewAllCourses() {
                 <div key={course.id}>
                     <h2>{course.name} by {course.instructor.name}</h2>
                     <h3>{course.category}</h3>
+                    <h4>Course Id: {course.id}</h4>
                     <p>{course.description}</p>
                 </div>
             ))}

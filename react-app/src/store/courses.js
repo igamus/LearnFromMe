@@ -3,7 +3,8 @@ const READ_SINGLE_COURSE = "learnfromme/courses/READ_SINGLE_COURSE";
 const READ_CATEGORY_COURSES = "learnfromme/courses/READ_CATEGORY_COURSES";
 const READ_ALL_COURSES = "learnfromme/courses/READ_ALL_COURSES";
 const READ_ALL_COURSES_ORGANIZED = "learnfromme/courses/READ_ALL_COURSES_ORGANIZED";
-const CREATE_COURSE = "learnfromme/courses/CREATE_COURSE"
+const CREATE_COURSE = "learnfromme/courses/CREATE_COURSE";
+const DELETE_COURSE = "learnfromme/courses/DELETE_COURSE";
 
 // action creators
 const readSingleCourseAction = course => ({
@@ -29,6 +30,11 @@ const readAllCoursesOrganizedAction = courses => ({
 const createCourseAction = course => ({
     type: CREATE_COURSE,
     course
+});
+
+const deleteCourseAction = courseId => ({
+    type: DELETE_COURSE,
+    courseId
 });
 
 // thunk action creators
@@ -82,20 +88,29 @@ export const readAllCoursesOrganizedThunk = () => async dispatch => {
 };
 
 export const createCourseThunk = formData => async dispatch => {
-    console.log("yes, this changed again");
-    console.log("Great")
-    console.log("gonna send to create");
     const res = await fetch("/api/courses/", {
         method: "POST",
         body: formData
     });
-    console.log("we did it?")
 
     if (res.ok) {
         const resCourse = await res.json();
         dispatch(createCourseAction(resCourse));
     } else {
         return console.log("There was an error creating the course.")
+    }
+};
+
+export const deleteCourseThunk = courseId => async dispatch => {
+    const res = await fetch(`/api/courses/course/${courseId}`, {
+        method: "DELETE",
+    });
+
+    if (res.ok) {
+        return dispatch(deleteCourseAction(courseId));
+    } else {
+        const errors = await res.json();
+        return errors;
     }
 };
 
@@ -147,8 +162,19 @@ function courseReducer(state = initialState, action) {
                 ...state,
             }
             newState.singleCourse = { ...action.course };
-            // newState.categoryCourses[action.course.category]
-            // allCourses all -- not organized...
+            // implement in course categories ? newState.categoryCourses[action.course.category]
+            // implement in allCourses ? allCourses all -- the not organized one...
+            return newState;
+        }
+        case DELETE_COURSE: {
+            console.log("Hi")
+            let newState = { ...state,
+                singleCourse: {},
+                categoryCourses: { ...state.categoryCourses },
+                allCourses: { ...state.allCourses }
+            };
+            delete newState.categoryCourses[action.courseId];
+            delete newState.allCourses[action.courseId];
             return newState;
         }
         default: {
