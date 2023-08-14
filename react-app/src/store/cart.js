@@ -1,7 +1,8 @@
 // action types
-const READ_CART = "learnfromme/courses/READ_CART";
-const ADD_TO_CART = "learnfromme/courses/ADD_TO_CART";
-const REMOVE_FROM_CART = "learnfromme/courses/REMOVE_FROM_CART";
+const READ_CART = "learnfromme/cart/READ_CART";
+const ADD_TO_CART = "learnfromme/cart/ADD_TO_CART";
+const REMOVE_FROM_CART = "learnfromme/cart/REMOVE_FROM_CART";
+const CLEAR_CART = "learnfromme/cart/CLEAR_CART"
 
 // action creators
 const readCartAction = courses => ({
@@ -17,6 +18,10 @@ const addToCartAction = course => ({
 const removeFromCartAction = courseId => ({
     type: REMOVE_FROM_CART,
     courseId
+});
+
+const clearCartAction = () => ({
+    type: CLEAR_CART
 });
 
 // thunk action creators
@@ -55,6 +60,17 @@ export const removeFromCartThunk = id => async dispatch => {
     }
 };
 
+export const clearCartThunk = () => async dispatch => {
+    const res = await fetch("/api/cart/clear");
+
+    if (res.ok) {
+        return dispatch(clearCartAction());
+    } else {
+        const errors = await res.json();
+        return errors;
+    }
+
+}
 
 // reducer
 const initialState = {};
@@ -76,6 +92,10 @@ function cartReducer(state = initialState, action) {
         case REMOVE_FROM_CART: {
             const newState = { ...state };
             delete newState[action.courseId];
+            return newState;
+        }
+        case CLEAR_CART: {
+            const newState = {};
             return newState;
         }
         default: {

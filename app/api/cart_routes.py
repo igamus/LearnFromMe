@@ -6,6 +6,25 @@ from app.models import db, Course
 cart_routes = Blueprint("cart", __name__)
 
 
+@cart_routes.route('/clear')
+@login_required
+def clear_cart():
+    """
+    Clear current user's cart of courses
+    """
+    courses = current_user.courses_in_cart
+
+    if courses:
+        try:
+            [current_user.courses_in_cart.remove(course) for course in courses]
+            db.session.commit()
+        except Exception as error:
+            db.session.rollback()
+            return jsonify({"error":"An error occurred while updating the server"}), 500
+
+    return jsonify({"message": "Cart is empty"}), 200
+
+
 @cart_routes.route('/remove/<int:course_id>')
 @login_required
 def remove_course_from_cart(course_id):
@@ -43,6 +62,8 @@ def add_course_to_cart(course_id):
         return jsonify({"message": "Course does not exist"}), 404
 
     # dont allow if you're the owner
+    if course.user.id == current_user.id:
+        return jsonify({"message": "You teach this course"}), 400
 
     if course in current_user.courses_in_cart:
         return jsonify({"message": "Course already in cart"}), 400
