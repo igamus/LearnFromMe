@@ -5,6 +5,7 @@ import { readSingleCourseThunk } from "../../store/courses";
 import DeleteModal from "../DeleteModal";
 import OpenModalButton from "../OpenModalButton";
 import { useHistory } from "react-router-dom";
+// import { readCartThunk } from "../../store/cart";
 
 function CoursePage() {
     const { courseId } = useParams();
@@ -16,12 +17,17 @@ function CoursePage() {
         dispatch(readSingleCourseThunk(courseId)).then(() => setCourseLoaded(true));
     }, [dispatch]);
 
+    // useEffect(() => {
+    //     dispatch(readCartThunk());
+    // }, [dispatch]);
+
     const course = useSelector(state => state.courses.singleCourse);
+    // const cart = useSelector(state => state.cart);
     const user = useSelector(state => state.session.user);
 
     return courseLoaded && (
         <div>
-            {user.id === course.instructor.id
+            {user?.id === course.instructor.id
                 ?
                     <div>
                         <button onClick={(e) => {
