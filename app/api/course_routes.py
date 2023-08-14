@@ -76,8 +76,6 @@ def get_course(course_id):
     """
     course = Course.query.get(course_id)
     course_d = course.to_dict()
-    course_d["instructor"] = course.user.to_dict()
-    course_d.pop("instructorId")
     return jsonify(course_d), 200
 
 
@@ -93,8 +91,6 @@ def get_all_courses_organized():
     organized_courses["Other"] = []
     for course in courses:
         course_d = course.to_dict()
-        course_d["instructor"] = course.user.to_dict()
-        course_d.pop("instructorId")
         categories = course.categories_for_course
         if categories:
             for category in categories:
@@ -113,13 +109,7 @@ def get_all_courses_of_category(category_id):
     Returns a list of all courses in a given category
     """
     category = Category.query.get(category_id)
-    # courses = [course.to_dict() for course in category.courses_of_category]
-    courses = []
-    for course in category.courses_of_category:
-        course_d = course.to_dict()
-        course_d["instructor"] = course.user.to_dict()
-        course_d.pop("instructorId")
-        courses.append(course_d)
+    courses = [course.to_dict() for course in category.courses_of_category]
     return jsonify(courses), 200
 
 
@@ -180,12 +170,5 @@ def get_all_courses():
     Returns a list of all courses
     """
     courses = Course.query.all()
-    # course_list = [course.to_dict() for course in courses]
-    course_list = []
-    for course in courses:
-        course_d = course.to_dict()
-        course_d["instructor"] = course.user.to_dict()
-        course_d.pop("instructorId")
-        course_list.append(course_d)
-
+    course_list = [course.to_dict() for course in courses]
     return jsonify(course_list), 200

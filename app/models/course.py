@@ -54,7 +54,8 @@ class Course(db.Model):
             "courseImage": self.course_image,
             "courseVideo": self.course_video,
             "price": self.price,
-            "instructorId": self.instructor_id,
+            # "instructorId": self.instructor_id,
+            "instructor": self.user.to_dict(),
             "level": self.level,
             "whatYoullLearn": self.what_youll_learn
         }
