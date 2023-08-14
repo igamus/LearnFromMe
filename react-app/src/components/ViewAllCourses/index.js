@@ -1,3 +1,4 @@
+import "./ViewAllCourses.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { readAllCoursesThunk } from "../../store/courses";
@@ -26,10 +27,12 @@ function ViewAllCourses() {
         <div>
             {allCourses.map(course => (
                 <div key={course.id}>
-                    <h2>{course.name} by {course.instructor.name}</h2>
-                    <h3>{course.category}</h3>
-                    <h4>Course Id: {course.id}</h4>
-                    <p>{course.description}</p>
+                    <div className="clickable" onClick={() => history.push(`/courses/course/${course.id}`)}>
+                        <h2>{course.name} by {course.instructor.name}</h2>
+                        <h3>{course.category}</h3>
+                        <h4>Course Id: {course.id}</h4>
+                        <p>{course.description}</p>
+                    </div>
                     {
                         cartLoaded && coursesInCart.includes(course.id)
                             ?

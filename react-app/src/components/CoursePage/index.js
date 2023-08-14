@@ -27,6 +27,7 @@ function CoursePage() {
 
     return courseLoaded && (
         <div>
+            <button onClick={() => history.push("/browse")}>Back</button>
             {user?.id === course.instructor.id
                 ?
                     <div>
