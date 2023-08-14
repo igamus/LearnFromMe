@@ -4,6 +4,7 @@ const READ_CATEGORY_COURSES = "learnfromme/courses/READ_CATEGORY_COURSES";
 const READ_ALL_COURSES = "learnfromme/courses/READ_ALL_COURSES";
 const READ_ALL_COURSES_ORGANIZED = "learnfromme/courses/READ_ALL_COURSES_ORGANIZED";
 const CREATE_COURSE = "learnfromme/courses/CREATE_COURSE";
+const UPDATE_COURSE = "learnfromme/courses/UPDATE_COURSE";
 const DELETE_COURSE = "learnfromme/courses/DELETE_COURSE";
 
 // action creators
@@ -30,6 +31,11 @@ const readAllCoursesOrganizedAction = courses => ({
 const createCourseAction = course => ({
     type: CREATE_COURSE,
     course
+});
+
+const updateCourseAction = updatedCourse => ({
+    type: UPDATE_COURSE,
+    updatedCourse
 });
 
 const deleteCourseAction = courseId => ({
@@ -101,6 +107,24 @@ export const createCourseThunk = formData => async dispatch => {
     }
 };
 
+// write thunk
+export const updateCourseThunk = (update, id) => async dispatch => {
+    const res = await fetch(`/api/courses/course/${id}`, {
+        method: "PUT",
+        body: update
+    });
+
+    if (res.ok) {
+        const resUpdate = await res.json();
+        dispatch(updateCourseAction(resUpdate));
+    } else {
+        console.log("There was an error updating the post")
+        const errors = await res.json();
+        console.log("errors in thunk:", errors);
+        return errors;
+    }
+};
+
 export const deleteCourseThunk = courseId => async dispatch => {
     const res = await fetch(`/api/courses/course/${courseId}`, {
         method: "DELETE",
@@ -117,7 +141,7 @@ export const deleteCourseThunk = courseId => async dispatch => {
 // reducer
 const initialState = { singleCourse: {}, categoryCourses: {}, allCourses: {} };
 
-function courseReducer(state = initialState, action) {
+function courseReducer(state = initialState, action) { // need to streamline; there's no way you should update every slice every time
     switch(action.type) {
         case READ_SINGLE_COURSE: {
             let newState = {
@@ -146,7 +170,7 @@ function courseReducer(state = initialState, action) {
             );
             return newState;
         }
-        case READ_ALL_COURSES_ORGANIZED: { // not sure about this whole process, might nuke this branch since it's so involved...
+        case READ_ALL_COURSES_ORGANIZED: { // not sure about this whole process, might nuke this subbranch of the state since it's so involved...
             let newState = {
                 ...state,
                 allCourses: {}
@@ -164,6 +188,20 @@ function courseReducer(state = initialState, action) {
             newState.singleCourse = { ...action.course };
             // implement in course categories ? newState.categoryCourses[action.course.category]
             // implement in allCourses ? allCourses all -- the not organized one...
+            return newState;
+        }
+        case UPDATE_COURSE: {
+            let newState = {
+                ...state,
+                singleCourse: { ...state.singleCourse },
+                categoryCourses: { ...state.categoryCourses },
+                allCourses: { ...state.allCourses }
+            };
+
+            newState.singleCourse = { ...action.updatedCourse };
+            newState.categoryCourses[action.updatedCourse.id] = { ...action.updatedCourse };
+            newState.allCourses[action.updatedCourse.id] = { ...action.updatedCourse };
+
             return newState;
         }
         case DELETE_COURSE: {

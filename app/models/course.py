@@ -52,6 +52,7 @@ class Course(db.Model):
             "name": self.name,
             "description": self.description,
             "courseImage": self.course_image,
+            "courseVideo": self.course_video,
             "price": self.price,
             "instructorId": self.instructor_id,
             "level": self.level,

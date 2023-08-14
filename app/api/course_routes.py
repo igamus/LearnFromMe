@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
 from app.models import Course, Category, db
 from ..forms.course_form import CourseForm
+from ..forms.update_course_form import UpdateCourseForm
 from .auth_routes import validation_errors_to_error_messages
 from .aws_helpers import upload_photo_file_to_s3, upload_video_file_to_s3, get_unique_filename, remove_image_file_from_s3, remove_video_file_from_s3
 
@@ -23,20 +24,25 @@ def update_course(course_id): # need to update the edit of this
     if course.instructor_id != current_user.id:
         return jsonify({"message": "Not authorized (only instructors may edit their courses)"}), 403
 
-    form = CourseForm()
+    form = UpdateCourseForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
         course.name = form.data["name"]
         course.description = form.data["description"]
-        course.course_image = form.data["course_image"] # update image file?
+        if form.data["course_image"]:
+            course.course_image = form.data["course_image"]
         course.price = form.data["price"]
         course.level = form.data["level"]
         course.what_youll_learn = form.data["what_youll_learn"]
-        course.course_video = form.data["course_video"]
+        if form.data["course_video"]:
+            course.course_video = form.data["course_video"]
 
         try:
+            updated = course.to_dict()
+            updated["instructor"] = course.user.to_dict()
+            updated.pop("instructorId")
             db.session.commit()
-            return jsonify({"message":"Course updated successfully"}), 200
+            return jsonify(updated), 200
         except Exception as error:
             db.session.rollback()
             return jsonify({"error":"An error occurred while updating the server"}), 500

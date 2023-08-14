@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { createCourseThunk } from "../../store/courses";
+import { createCourseThunk, updateCourseThunk } from "../../store/courses";
 
 function CourseForm({ type, starterForm }) {
     console.log("type:", type)
@@ -18,6 +18,8 @@ function CourseForm({ type, starterForm }) {
     const [whatYoullLearn3, setWhatYoullLearn3] = useState(starterForm.whatYoullLearn3);
     const [courseVideo, setCourseVideo] = useState(starterForm.courseVideo);
 
+    const [errors, setErrors] = useState("");
+
     const [imageLoading, setImageLoading] = useState(false);
     const [videoLoading, setVideoLoading] = useState(false);
 
@@ -26,8 +28,8 @@ function CourseForm({ type, starterForm }) {
 
         // need error handling, including an error state
         const whatYoullLearn = [whatYoullLearn1];
-        if (whatYoullLearn2.length) whatYoullLearn.push(whatYoullLearn2);
-        if (whatYoullLearn3.length) whatYoullLearn.push(whatYoullLearn3);
+        if (whatYoullLearn2?.length) whatYoullLearn.push(whatYoullLearn2);
+        if (whatYoullLearn3?.length) whatYoullLearn.push(whatYoullLearn3);
 
         console.log({
             name,
@@ -49,13 +51,21 @@ function CourseForm({ type, starterForm }) {
         formData.append("course_video", courseVideo);
         setImageLoading(true); // when does this turn false?
         if (type === "create") {
-            console.log("in if");
             try {
                 await dispatch(createCourseThunk(formData));
-                history.push("/courses/");
-            } catch(e) {
-                // do stuff with e
-                console.log("errors:", e)
+                history.push("/courses/"); // TODO: redirect to course for better ux
+            } catch(errors) {
+                // do stuff with errors
+                console.log("errors:", errors);
+            }
+        }
+        if (type === "update") {
+            try {
+                const e = await dispatch(updateCourseThunk(formData, starterForm.id));
+                history.push(`/courses/course/${starterForm.id}`)
+            } catch (errors) {
+                console.log("Errors updating:", errors);
+                setErrors(errors);
             }
         }
     };
@@ -64,6 +74,11 @@ function CourseForm({ type, starterForm }) {
 
     return (
         <div>
+            {errors ?
+                Object.values(errors).map(error => <p>{error}</p>)
+                    :
+                null
+            }
             <form
                 onSubmit={handleSubmit}
                 encType="multipart/form-data"
@@ -146,10 +161,8 @@ function CourseForm({ type, starterForm }) {
                 />
                 <button type="submit">Submit</button>
                 {/* <button type="submit" disabled={disabled}>Submit</button> */}
-                {(imageLoading) && <p>Loading...</p>}
-                {(videoLoading) && <p>Loading...</p>}
-
-
+                {/* {(imageLoading) && <p>Loading...</p>} */}
+                {/* {(videoLoading) && <p>Loading...</p>} */}
             </form>
         </div>
     );

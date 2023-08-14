@@ -11,6 +11,8 @@ import CoursePage from "./components/CoursePage";
 import CategoryCourses from "./components/CategoryCourses";
 import ViewAllCourses from "./components/ViewAllCourses";
 import CreateCourse from "./components/CreateCourse";
+import SplashPage from "./components/SplashPage";
+import UpdateCourse from "./components/UpdateCourse";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +29,9 @@ function App() {
           <ProtectedRoute exact path="/courses/new">
             <CreateCourse />
           </ProtectedRoute>
+          <ProtectedRoute exact path="/courses/course/:courseId/update">
+            <UpdateCourse />
+          </ProtectedRoute>
           <Route exact path="/courses/course/:courseId">
             <CoursePage />
           </Route>
@@ -41,6 +46,9 @@ function App() {
           </Route>
           <Route exact path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route exact path="/">
+            <SplashPage />
           </Route>
           <CustomError />
         </Switch>
