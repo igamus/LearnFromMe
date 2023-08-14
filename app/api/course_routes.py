@@ -39,8 +39,6 @@ def update_course(course_id): # need to update the edit of this
 
         try:
             updated = course.to_dict()
-            updated["instructor"] = course.user.to_dict()
-            updated.pop("instructorId")
             db.session.commit()
             return jsonify(updated), 200
         except Exception as error:
