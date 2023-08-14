@@ -6,7 +6,7 @@ function CreateCourse() {
         description: "",
         courseImage: null,
         price: "",
-        level: "",
+        level: "Beginner",
         whatYoullLearn1: "",
         whatYoullLearn2: "",
         whatYoullLearn3: "",
