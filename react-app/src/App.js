@@ -13,6 +13,7 @@ import ViewAllCourses from "./components/ViewAllCourses";
 import CreateCourse from "./components/CreateCourse";
 import SplashPage from "./components/SplashPage";
 import UpdateCourse from "./components/UpdateCourse";
+import Cart from "./components/Cart";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +27,9 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <ProtectedRoute exact path="/cart">
+            <Cart />
+          </ProtectedRoute>
           <ProtectedRoute exact path="/courses/new">
             <CreateCourse />
           </ProtectedRoute>

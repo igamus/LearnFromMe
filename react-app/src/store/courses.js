@@ -107,7 +107,6 @@ export const createCourseThunk = formData => async dispatch => {
     }
 };
 
-// write thunk
 export const updateCourseThunk = (update, id) => async dispatch => {
     const res = await fetch(`/api/courses/course/${id}`, {
         method: "PUT",
