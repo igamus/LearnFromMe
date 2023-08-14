@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { readCartThunk } from "../../store/cart";
+import { readCartThunk, removeFromCartThunk } from "../../store/cart";
 
 function Cart() {
     const dispatch = useDispatch();
@@ -14,8 +14,12 @@ function Cart() {
         <div>
             <h1>Your Cart!</h1>
             {cart.map(course => (
-                <div>
+                <div key={course.id}>
                     <h2>{course.name}</h2>
+                    <button onClick={e => {
+                        e.preventDefault()
+                        dispatch(removeFromCartThunk(course.id))
+                    }}>Remove from cart</button>
                 </div>
             ))}
         </div>

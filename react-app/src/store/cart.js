@@ -1,10 +1,16 @@
 // action types
 const READ_CART = "learnfromme/courses/READ_CART";
+const REMOVE_FROM_CART = "learnfromme/courses/REMOVE_FROM_CART";
 
 // action creators
 const readCartAction = courses => ({
     type: READ_CART,
     courses
+});
+
+const removeFromCartAction = courseId => ({
+    type: REMOVE_FROM_CART,
+    courseId
 });
 
 // thunk action creators
@@ -20,6 +26,17 @@ export const readCartThunk = () => async dispatch => {
     }
 };
 
+export const removeFromCartThunk = (id) => async dispatch => {
+    const res = await fetch(`/api/cart/remove/${id}`);
+
+    if (res.ok) {
+        return dispatch(removeFromCartAction(id));
+    } else {
+        const errors = await res.json();
+        return errors;
+    }
+};
+
 
 // reducer
 const initialState = {};
@@ -27,12 +44,15 @@ const initialState = {};
 function cartReducer(state = initialState, action) {
     switch(action.type) {
         case READ_CART: {
-            let newState = {
-                ...state,
-            };
+            let newState = { ...state };
             action.courses.forEach(course => {
                 newState[course.id] = course;
             });
+            return newState;
+        }
+        case REMOVE_FROM_CART: {
+            let newState = { ...state };
+            delete newState[action.courseId];
             return newState;
         }
         default: {
