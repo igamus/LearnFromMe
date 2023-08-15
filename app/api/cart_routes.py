@@ -29,12 +29,10 @@ def remove_course_from_cart(course_id):
         return jsonify({"message": "Course does not exist"}), 404
 
     if not course in current_user.courses_in_cart:
-    # if not current_user in course.users_with_course_in_cart:
         return jsonify({"message": "Target course not in cart"}), 400
 
     try:
         current_user.courses_in_cart.remove(course)
-        # course.users_with_course_in_cart.remove(current_user)
         db.session.commit()
         return jsonify({"message": "Successfully removed course from cart"}), 200 # maybe return updated cart
     except Exception as error:
@@ -53,7 +51,6 @@ def add_course_to_cart(course_id):
     if course is None:
         return jsonify({"message": "Course does not exist"}), 404
 
-    # dont allow if you're the owner
     if course.user.id == current_user.id:
         return jsonify({"message": "You teach this course"}), 400
 

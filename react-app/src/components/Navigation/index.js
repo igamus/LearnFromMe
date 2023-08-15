@@ -16,6 +16,9 @@ function Navigation({ isLoaded }){
 				<NavLink exact to="/browse">Browse Courses</NavLink>
 			</li>
 			<li>
+				<NavLink exact to="/courses/teach">Teach on LearnFromMe</NavLink>
+			</li>
+			<li>
 				<NavLink exact to="/cart">Cart</NavLink>
 			</li>
 			{isLoaded && (

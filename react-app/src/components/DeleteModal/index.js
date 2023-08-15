@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { deleteCourseThunk } from "../../store/courses";
 import { useModal } from "../../context/Modal";
 
-function DeleteModal({ type, id }) {
+function DeleteModal({ type, id, from }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const { closeModal } = useModal();
@@ -13,7 +13,7 @@ function DeleteModal({ type, id }) {
         try {
             dispatch(deleteCourseThunk(id));
             closeModal();
-            history.push("/courses");
+            if (from === "page") history.push("/browse");
         } catch (errors) {
             console.log("Error deleting course:", errors);
         }

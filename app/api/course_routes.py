@@ -10,6 +10,26 @@ from .aws_helpers import upload_photo_file_to_s3, upload_video_file_to_s3, get_u
 course_routes = Blueprint("course", __name__)
 
 
+@course_routes.route("/teach")
+@login_required
+def get_taught_courses():
+    """
+    Get all courses taught by the currently logged-in user
+    """
+    taught_courses = [course.to_dict() for course in current_user.courses]
+    return jsonify(taught_courses), 200
+
+
+@course_routes.route("/learn")
+@login_required
+def get_purchased_courses():
+    """
+    Get all courses owned by the currently logged-in user
+    """
+    purchased_courses = [course.to_dict() for course in current_user.purchased_courses]
+    return jsonify(purchased_courses), 200
+
+
 @course_routes.route("/course/<int:course_id>", methods=["PUT"])
 @login_required
 def update_course(course_id): # need to update the edit of this

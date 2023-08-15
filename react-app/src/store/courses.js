@@ -1,5 +1,7 @@
 // action types
 const READ_SINGLE_COURSE = "learnfromme/courses/READ_SINGLE_COURSE";
+const READ_ALL_PURCHASED_COURSES = "learnfromme/courses/READ_ALL_PURCHASED_COURSES";
+const READ_ALL_TAUGHT_COURSES = "learnfromme/courses/READ_ALL_TAUGHT_COURSES";
 const READ_CATEGORY_COURSES = "learnfromme/courses/READ_CATEGORY_COURSES";
 const READ_ALL_COURSES = "learnfromme/courses/READ_ALL_COURSES";
 const READ_ALL_COURSES_ORGANIZED = "learnfromme/courses/READ_ALL_COURSES_ORGANIZED";
@@ -11,6 +13,16 @@ const DELETE_COURSE = "learnfromme/courses/DELETE_COURSE";
 const readSingleCourseAction = course => ({
     type: READ_SINGLE_COURSE,
     course
+});
+
+const readAllPurchasedCoursesAction = courses => ({
+    type: READ_ALL_PURCHASED_COURSES,
+    courses
+});
+
+const readAllTaughtCoursesAction = courses => ({
+    type: READ_ALL_TAUGHT_COURSES,
+    courses
 });
 
 const readCategoryCoursesAction = courses => ({
@@ -56,8 +68,31 @@ export const readSingleCourseThunk = courseId => async dispatch => {
     }
 };
 
+export const readAllPurchasedCoursesThunk = () => async dispatch => {
+    const res = await fetch("/api/courses/learn");
+
+    if (res.ok) {
+        const data = await res.json();
+        return dispatch(readAllPurchasedCoursesAction(data));
+    } else {
+        const errors = await res.json();
+        return errors;
+    }
+};
+
+export const readAllTaughtCoursesThunk = () => async dispatch => {
+    const res = await fetch("/api/courses/teach");
+
+    if (res.ok) {
+        const data = await res.json();
+        return dispatch(readAllTaughtCoursesAction(data));
+    } else {
+        const errors = await res.json();
+        return errors;
+    }
+};
+
 export const readCategoryCoursesThunk = categoryId => async dispatch => {
-    console.log(`/api/courses/${categoryId}`)
     const res = await fetch(`/api/courses/${categoryId}`);
 
     if (res.ok) {
@@ -98,12 +133,17 @@ export const createCourseThunk = formData => async dispatch => {
         method: "POST",
         body: formData
     });
+    console.log('create res:', res);
 
     if (res.ok) {
         const resCourse = await res.json();
+        console.log('res in thunk after create:', resCourse)
         dispatch(createCourseAction(resCourse));
+        return resCourse;
     } else {
-        return console.log("There was an error creating the course.")
+        const errors = await res.json();
+        console.log("errors:", errors);
+        return console.log("There was an error creating the course.");
     }
 };
 
@@ -115,7 +155,7 @@ export const updateCourseThunk = (update, id) => async dispatch => {
 
     if (res.ok) {
         const resUpdate = await res.json();
-        dispatch(updateCourseAction(resUpdate));
+        return dispatch(updateCourseAction(resUpdate));
     } else {
         console.log("There was an error updating the post")
         const errors = await res.json();
@@ -138,19 +178,33 @@ export const deleteCourseThunk = courseId => async dispatch => {
 };
 
 // reducer
-const initialState = { singleCourse: {}, categoryCourses: {}, allCourses: {} };
+const initialState = { singleCourse: {}, purchasedCourses: {}, taughtCourses: {}, categoryCourses: {}, allCourses: {} };
 
 function courseReducer(state = initialState, action) { // need to streamline; there's no way you should update every slice every time
     switch(action.type) {
         case READ_SINGLE_COURSE: {
-            let newState = {
+            const newState = {
                 ...state,
                 singleCourse: { ...action.course }
             };
             return newState;
         }
+        case READ_ALL_PURCHASED_COURSES: {
+            const newState = { ...state };
+            action.courses.forEach(
+                course => newState.purchasedCourses[course.id] = course
+            )
+            return newState;
+        }
+        case READ_ALL_TAUGHT_COURSES: {
+            const newState = { ...state };
+            action.courses.forEach(
+                course => newState.taughtCourses[course.id] = course
+            )
+            return newState;
+        }
         case READ_CATEGORY_COURSES: {
-            let newState = {
+            const newState = {
                 ...state,
                 categoryCourses: {}
             };
@@ -160,7 +214,7 @@ function courseReducer(state = initialState, action) { // need to streamline; th
             return newState;
         }
         case READ_ALL_COURSES: {
-            let newState = {
+            const newState = {
                 ...state,
                 allCourses: {}
             }
@@ -170,7 +224,7 @@ function courseReducer(state = initialState, action) { // need to streamline; th
             return newState;
         }
         case READ_ALL_COURSES_ORGANIZED: { // not sure about this whole process, might nuke this subbranch of the state since it's so involved...
-            let newState = {
+            const newState = {
                 ...state,
                 allCourses: {}
             };
@@ -181,16 +235,18 @@ function courseReducer(state = initialState, action) { // need to streamline; th
             return newState;
         }
         case CREATE_COURSE: { // almost certainly dont need to handle this in the reducer, right?
-            let newState = {
+            const newState = {
                 ...state,
+                taughtCourses: { ...state.taughtCourses }
             }
             newState.singleCourse = { ...action.course };
+            newState.taughtCourses[action.course.id] = action.course;
             // implement in course categories ? newState.categoryCourses[action.course.category]
             // implement in allCourses ? allCourses all -- the not organized one...
             return newState;
         }
         case UPDATE_COURSE: {
-            let newState = {
+            const newState = {
                 ...state,
                 singleCourse: { ...state.singleCourse },
                 categoryCourses: { ...state.categoryCourses },
@@ -204,12 +260,13 @@ function courseReducer(state = initialState, action) { // need to streamline; th
             return newState;
         }
         case DELETE_COURSE: {
-            console.log("Hi")
-            let newState = { ...state,
+            const newState = { ...state,
                 singleCourse: {},
                 categoryCourses: { ...state.categoryCourses },
                 allCourses: { ...state.allCourses }
             };
+            delete newState.purchasedCourses[action.courseId];
+            delete newState.taughtCourses[action.courseId];
             delete newState.categoryCourses[action.courseId];
             delete newState.allCourses[action.courseId];
             return newState;

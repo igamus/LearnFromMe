@@ -35,7 +35,7 @@ function CoursePage() {
                             e.preventDefault();
                             history.push(`/courses/course/${courseId}/update`)}
                         }>Update Course</button>
-                        <OpenModalButton buttonText={"Delete This Course"} modalComponent={<DeleteModal type="course" id={courseId} />} />
+                        <OpenModalButton buttonText="Delete This Course" modalComponent={<DeleteModal type="course" id={courseId} from="page" />} />
                     </div>
                 :
             null}

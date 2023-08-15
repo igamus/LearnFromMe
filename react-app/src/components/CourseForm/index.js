@@ -52,8 +52,9 @@ function CourseForm({ type, starterForm }) {
         setImageLoading(true); // when does this turn false?
         if (type === "create") {
             try {
-                await dispatch(createCourseThunk(formData));
-                history.push("/courses/"); // TODO: redirect to course for better ux
+                const newCourse = await dispatch(createCourseThunk(formData));
+                console.log("newCourse:", newCourse);
+                history.push(`/courses/course/${newCourse.id}`); // TODO: redirect to course for better ux
             } catch(errors) {
                 // do stuff with errors
                 console.log("errors:", errors);
