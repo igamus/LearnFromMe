@@ -1,16 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
-import OpenModalButton from "../OpenModalButton";
-import LoginFormModal from "../LoginFormModal";
-import SignupFormModal from "../SignupFormModal";
 import { clearCartOnLogoutThunk } from "../../store/cart";
 import { resetOnLogoutThunk } from "../../store/courses";
+import { useHistory } from "react-router-dom";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
+  const history = useHistory();
 
   const openMenu = () => {
     if (showMenu) return;
@@ -57,17 +56,15 @@ function ProfileButton({ user }) {
           </>
         ) : (
           <>
-            <OpenModalButton
-              buttonText="Log In"
-              onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />}
-            />
+            <button onClick={() => {
+              history.push("/login")
+              closeMenu();
+            }}>Log in</button>
 
-            <OpenModalButton
-              buttonText="Sign Up"
-              onItemClick={closeMenu}
-              modalComponent={<SignupFormModal />}
-            />
+            <button onClick={() => {
+              history.push("/signup")
+              closeMenu();
+            }}>Sign up</button>
           </>
         )}
       </ul>
