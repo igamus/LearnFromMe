@@ -22,7 +22,7 @@ function ManageCourses() {
             <button onClick={() => history.push("/courses/new")}>Create a Course</button>
             {courses.map(course => (
                 <div key={course.id}>
-                    <h2 className="clickable" onClick={() => history.push(`/courses/course/${course.id}`)}>{course.name}</h2>
+                    <h2 className="clickable" onClick={() => history.push(`/learn/${course.id}`)}>{course.name}</h2>
                     <button onClick={() => history.push(`/courses/course/${course.id}/update`)}>Update Course</button>
                     <OpenModalButton buttonText="Delete Course" modalComponent={<DeleteModal type="course" id={course.id} />} />
                 </div>
