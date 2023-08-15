@@ -8,6 +8,7 @@ const READ_ALL_COURSES_ORGANIZED = "learnfromme/courses/READ_ALL_COURSES_ORGANIZ
 const CREATE_COURSE = "learnfromme/courses/CREATE_COURSE";
 const UPDATE_COURSE = "learnfromme/courses/UPDATE_COURSE";
 const DELETE_COURSE = "learnfromme/courses/DELETE_COURSE";
+const RESET_ON_LOGOUT = "learnfromme/courses/RESET_ON_LOGOUT";
 
 // action creators
 const readSingleCourseAction = course => ({
@@ -53,6 +54,10 @@ const updateCourseAction = updatedCourse => ({
 const deleteCourseAction = courseId => ({
     type: DELETE_COURSE,
     courseId
+});
+
+const resetOnLogoutAction = () => ({
+    type: RESET_ON_LOGOUT
 });
 
 // thunk action creators
@@ -177,6 +182,10 @@ export const deleteCourseThunk = courseId => async dispatch => {
     }
 };
 
+export const resetOnLogoutThunk = () => async dispatch => {
+    return dispatch(resetOnLogoutAction())
+};
+
 // reducer
 const initialState = { singleCourse: {}, purchasedCourses: {}, taughtCourses: {}, categoryCourses: {}, allCourses: {} };
 
@@ -269,6 +278,13 @@ function courseReducer(state = initialState, action) { // need to streamline; th
             delete newState.taughtCourses[action.courseId];
             delete newState.categoryCourses[action.courseId];
             delete newState.allCourses[action.courseId];
+            return newState;
+        }
+        case RESET_ON_LOGOUT: {
+            const newState = { ...state,
+                purchasedCourses: {},
+                taughtCourses: {}
+            }
             return newState;
         }
         default: {

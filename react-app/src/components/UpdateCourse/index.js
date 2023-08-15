@@ -24,7 +24,7 @@ function UpdateCourse() {
         courseImage: course.courseImage,
         price: course.price,
         level: course.level,
-        whatYoullLearn1: courseLoaded && whatYoullLearn[0],
+        whatYoullLearn1: courseLoaded && whatYoullLearn[0], 
         whatYoullLearn2: courseLoaded && whatYoullLearn[1],
         whatYoullLearn3: courseLoaded && whatYoullLearn[2],
         courseVideo: course.courseVideo,

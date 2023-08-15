@@ -4,6 +4,8 @@ import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import { clearCartOnLogoutThunk } from "../../store/cart";
+import { resetOnLogoutThunk } from "../../store/courses";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -32,6 +34,8 @@ function ProfileButton({ user }) {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
+    dispatch(clearCartOnLogoutThunk());
+    dispatch(resetOnLogoutThunk());
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");

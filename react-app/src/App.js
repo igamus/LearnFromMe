@@ -8,7 +8,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import CustomError from "./components/CustomError";
 import CoursePage from "./components/CoursePage";
-import CategoryCourses from "./components/CategoryCourses";
+// import CategoryCourses from "./components/CategoryCourses";
 import ViewAllCourses from "./components/ViewAllCourses";
 import CreateCourse from "./components/CreateCourse";
 import SplashPage from "./components/SplashPage";

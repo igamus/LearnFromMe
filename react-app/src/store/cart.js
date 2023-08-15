@@ -69,7 +69,10 @@ export const clearCartThunk = () => async dispatch => {
         const errors = await res.json();
         return errors;
     }
+}
 
+export const clearCartOnLogoutThunk = () => async dispatch => {
+    return dispatch(clearCartAction())
 }
 
 // reducer
