@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { readAllCoursesThunk } from "../../store/courses";
 import { addToCartThunk, readCartThunk } from "../../store/cart";
 import { useHistory } from "react-router-dom";
+import OpenModalButton from "../OpenModalButton";
+import EncourageLoginModal from "../EncourageLogInModal";
 
 function ViewAllCourses() {
     const dispatch = useDispatch();
@@ -34,6 +36,14 @@ function ViewAllCourses() {
                         <p>{course.description}</p>
                     </div>
                     {
+                        user === null
+                            ?
+                        <OpenModalButton buttonText="Add to Cart" modalComponent={<EncourageLoginModal />} />
+                            :
+                        user?.id === course.instructor.id
+                            ?
+                        <button onClick={() => history.push(`/learn/${course.id}`)}>Manage course</button>
+                            :
                         cartLoaded && coursesInCart.includes(course.id)
                             ?
                         <button onClick={() => history.push("/cart")}>Go to cart</button>
