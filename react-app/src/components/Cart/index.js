@@ -20,6 +20,11 @@ function Cart() {
                 </div>
             ))}
             <p className="clickable" onClick={() => dispatch(clearCartThunk())}>Clear cart</p>
+            <button onClick={(e) => {
+                e.preventDefault();
+                dispatch(clearCartThunk());
+                alert('Courses "purchased" (feature to be added soon). Thank you for using LearnFromMe!')
+            }}>Checkout</button>
         </div>
     );
 };
