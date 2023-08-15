@@ -17,9 +17,9 @@ function Cart() {
                 <div key={course.id}>
                     <h2>{course.name}</h2>
                     <button onClick={() => dispatch(removeFromCartThunk(course.id))}>Remove from cart</button>
-                    <p onClick={() => dispatch(clearCartThunk())}>Clear cart</p>
                 </div>
             ))}
+            <p className="clickable" onClick={() => dispatch(clearCartThunk())}>Clear cart</p>
         </div>
     );
 };

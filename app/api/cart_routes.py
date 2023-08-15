@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
-from app.models import db, Course
+from app.models import db, Course, shopping_cart
 
 
 cart_routes = Blueprint("cart", __name__)
@@ -12,16 +12,8 @@ def clear_cart():
     """
     Clear current user's cart of courses
     """
-    courses = current_user.courses_in_cart
-
-    if courses:
-        try:
-            [current_user.courses_in_cart.remove(course) for course in courses]
-            db.session.commit()
-        except Exception as error:
-            db.session.rollback()
-            return jsonify({"error":"An error occurred while updating the server"}), 500
-
+    current_user.courses_in_cart = []
+    db.session.commit()
     return jsonify({"message": "Cart is empty"}), 200
 
 
