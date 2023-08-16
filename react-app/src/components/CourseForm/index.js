@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createCourseThunk, updateCourseThunk } from "../../store/courses";
+import decimalCount from "../../utils/decimalCount";
 
 function CourseForm({ type, starterForm }) {
     console.log("type:", type)
@@ -20,16 +21,31 @@ function CourseForm({ type, starterForm }) {
 
     const [errors, setErrors] = useState("");
 
-    const [imageLoading, setImageLoading] = useState(false);
-    const [videoLoading, setVideoLoading] = useState(false);
+    const [submissionLoading, setSubmissionLoading] = useState(false);
+
+    const [disable, setDisable] = useState(true);
 
     const handleSubmit = async e => {
         e.preventDefault();
 
-        // need error handling, including an error state
-        const whatYoullLearn = [whatYoullLearn1];
-        if (whatYoullLearn2?.length) whatYoullLearn.push(whatYoullLearn2);
-        if (whatYoullLearn3?.length) whatYoullLearn.push(whatYoullLearn3);
+        const newErrors = [];
+        const whatYoullLearnArr = [whatYoullLearn1];
+        if (whatYoullLearn2?.length) whatYoullLearnArr.push(whatYoullLearn2);
+        if (whatYoullLearn3?.length) whatYoullLearnArr.push(whatYoullLearn3);
+        const whatYoullLearn = whatYoullLearnArr.join("|");
+
+        if (whatYoullLearn.length > 255) newErrors.push(`Takeaways: Total character count of takeaways must be less than 256 characters (currently using ${whatYoullLearn.length} characters)`);
+        if (!courseImage) newErrors.push("Thumbnail Image: This is a required field.");
+        if (!courseVideo) newErrors.push("Course Video: This is a required field.");
+        if (decimalCount(price) > 2) newErrors.push("Price: Prices must be rounded to the nearest cent")
+        if (price <= 0) newErrors.push("Price: Prices must be greater than 0")
+
+        console.log("newErrors:", newErrors)
+        if (newErrors.length) {
+            setSubmissionLoading(false);
+            setErrors(newErrors);
+            return;
+        }
 
         console.log({
             name,
@@ -38,26 +54,27 @@ function CourseForm({ type, starterForm }) {
             price,
             level,
             course_video: courseVideo,
-            whatYoullLearn: whatYoullLearn.join("|")
+            whatYoullLearn: whatYoullLearn
         });
 
         const formData = new FormData();
         formData.append("name", name);
         formData.append("description", description);
-        formData.append("course_image", courseImage); //keys here should be the same as wtform class
+        formData.append("course_image", courseImage);
         formData.append("price", price);
         formData.append("level", level);
-        formData.append("what_youll_learn", whatYoullLearn.join("|"));
+        formData.append("what_youll_learn", whatYoullLearn);
         formData.append("course_video", courseVideo);
-        setImageLoading(true); // when does this turn false?
+        setSubmissionLoading(true);
+
         if (type === "create") {
             try {
                 const newCourse = await dispatch(createCourseThunk(formData));
                 console.log("newCourse:", newCourse);
-                history.push(`/courses/course/${newCourse.id}`); // TODO: redirect to course for better ux
+                history.push(`/courses/course/${newCourse.id}`);
             } catch(errors) {
-                // do stuff with errors
-                console.log("errors:", errors);
+                console.log("Errors creating:", errors);
+                setErrors(errors);
             }
         }
         if (type === "update") {
@@ -71,12 +88,18 @@ function CourseForm({ type, starterForm }) {
         }
     };
 
-    // need to handle disabling button with a useEffect
+    useEffect(() => {
+        setDisable(true);
+
+        if (name.length && courseImage && price.length && whatYoullLearn1.length && courseVideo) setDisable(false);
+    }, [name, courseImage, price, whatYoullLearn1, courseVideo]);
 
     return (
         <div>
+            <h1>{type === "create" ? "Create" : "Update"} your course</h1>
+            <h4>* indicates a required field</h4>
             {errors ?
-                Object.values(errors).map(error => <p>{error}</p>)
+                errors.map((error, idx) => <p key={idx}>{error}</p>)
                     :
                 null
             }
@@ -84,40 +107,47 @@ function CourseForm({ type, starterForm }) {
                 onSubmit={handleSubmit}
                 encType="multipart/form-data"
             >
-                <label htmlFor="course-name">Name</label>
+                <label htmlFor="course-name">Name*</label>
                 <input
                     id="course-name"
                     placeholder="Course name"
                     type="text"
+                    min="5"
+                    max="255"
+                    required
                     value={name}
                     onChange={e => setName(e.target.value)}
-                />
+                />*
 
                 <label htmlFor="description">Description</label>
                 <input
                     id="description"
                     placeholder="Describe your course!"
                     type="text"
+                    max="255"
                     value={description}
                     onChange={e => setDescription(e.target.value)}
                 />
 
-                <label htmlFor="course-image">Thumbnail Image</label>
+                <label htmlFor="course-image">Thumbnail Image*</label>
                 <input
                     id="course-image"
                     type="file"
                     onChange={e => setCourseImage(e.target.files[0])}
                     accept="image/*"
-                />
+                />*
 
-                <label htmlFor="price">Price $</label>
-                <input
+                <label htmlFor="price">Price*</label>
+                $<input
                     id="price"
                     placeholder="Price"
-                    type="text"
+                    type="number"
+                    required
+                    min="0.01"
+                    step="any"
                     value={price}
                     onChange={e => setPrice(e.target.value)}
-                />
+                />*
 
                 <label htmlFor="level">Level</label>
                 <select
@@ -128,16 +158,18 @@ function CourseForm({ type, starterForm }) {
                     <option value="Beginner">Beginner</option>
                     <option value="Intermediate">Intermediate</option>
                     <option value="Advanced">Advanced</option>
-                </select>
+                </select>*
 
-                <label htmlFor="whatyoulllearn1">List up to three takeaways from the course!</label>
+                <label htmlFor="whatyoulllearn1">What You'll Learn: List up to three takeaways from your course</label>
+                *Must include at least one takeaway
                 <input
                     id="whatyoulllearn1"
                     placeholder="Tell people what they'll learn!"
                     type="text"
+                    required
                     value={whatYoullLearn1}
                     onChange={e => setWhatYoullLearn1(e.target.value)}
-                />
+                />*
                 <input
                     id="whatyoulllearn2"
                     placeholder="Add another takeaway (optional)"
@@ -153,17 +185,15 @@ function CourseForm({ type, starterForm }) {
                     onChange={e => setWhatYoullLearn3(e.target.value)}
                 />
 
-                <label htmlFor="course-video">Upload your course!</label>
+                <label htmlFor="course-video">Upload your course!*</label>
                 <input
                     id="course-video"
                     type="file"
                     onChange={e => setCourseVideo(e.target.files[0])}
                     accept="video/*"
-                />
-                <button type="submit">Submit</button>
-                {/* <button type="submit" disabled={disabled}>Submit</button> */}
-                {/* {(imageLoading) && <p>Loading...</p>} */}
-                {/* {(videoLoading) && <p>Loading...</p>} */}
+                />*
+                <button type="submit" disabled={disable}>Submit</button>
+                {(submissionLoading) && <p>Loading...</p>}
             </form>
         </div>
     );
