@@ -30,37 +30,36 @@ function LoginFormPage() {
 
   return (
     <div>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
+      <h1 className="login-header">Log in to your LearnFromMe account</h1>
+      <form className="login-form" onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
+            <li key={idx} className="error">{error}</li>
           ))}
         </ul>
-        <label>
-          Email
+          <div className="fake-button">
+
+          </div>
           <input
+            placeholder="Email"
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Password
           <input
+            placeholder="Password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
-        <button type="submit" disabled={disable}>Log In</button>
+        <button className="purple-button" type="submit" disabled={disable}>Log In</button>
       </form>
-      <button onClick={async e => {
+      <span> or <span className="purple-text clickable" onClick={async e => {
         e.preventDefault()
         await dispatch(login("demo@aa.io","password"))
-      }}>Demo User</button>
+      }}>Log in as a Demo User</span></span>
     </div>
   );
 }

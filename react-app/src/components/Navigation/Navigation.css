@@ -68,3 +68,7 @@
   border-radius: 20px;
   width: 30vw;
 }
+
+.search-input:disabled {
+  background-color: #f7f9fa;
+}

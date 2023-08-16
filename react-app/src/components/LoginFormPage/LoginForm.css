@@ -1,0 +1,18 @@
+.login-header {
+    font-size: 1rem;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.purple-text {
+    color: #5624d0;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.purple-text:hover {
+    color: #4a20b7;
+}
