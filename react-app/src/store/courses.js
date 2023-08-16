@@ -148,7 +148,7 @@ export const createCourseThunk = formData => async dispatch => {
     } else {
         const errors = await res.json();
         console.log("errors:", errors);
-        return console.log("There was an error creating the course.");
+        throw errors;
     }
 };
 
@@ -165,7 +165,7 @@ export const updateCourseThunk = (update, id) => async dispatch => {
         console.log("There was an error updating the post")
         const errors = await res.json();
         console.log("errors in thunk:", errors);
-        return errors;
+        throw errors;
     }
 };
 

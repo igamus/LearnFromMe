@@ -73,8 +73,9 @@ function CourseForm({ type, starterForm }) {
                 console.log("newCourse:", newCourse);
                 history.push(`/courses/course/${newCourse.id}`);
             } catch(errors) {
+                setSubmissionLoading(false);
                 console.log("Errors creating:", errors);
-                setErrors(errors);
+                setErrors(errors.errors);
             }
         }
         if (type === "update") {
@@ -82,6 +83,7 @@ function CourseForm({ type, starterForm }) {
                 const e = await dispatch(updateCourseThunk(formData, starterForm.id));
                 history.push(`/courses/course/${starterForm.id}`)
             } catch (errors) {
+                setSubmissionLoading(false);
                 console.log("Errors updating:", errors);
                 setErrors(errors);
             }
