@@ -1,3 +1,54 @@
+.splash-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center
+}
+
+.image-box {
+    display: flex;
+    align-items: center;
+}
+
+.float-box {
+    margin-left: 75px;
+    position: absolute;
+    height: fit-content;
+    width: 400px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,.08);
+    padding: 24px;
+}
+
+.float-header {
+    font-size: 1.7rem;
+}
+
+.float-text {
+    line-height: 1.75;
+}
+
 .splash-image {
     padding-bottom: 50px;
+}
+
+.tech-stack {
+    background-color: #f7f9fa;
+    color: #6a6f73;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5vh 0;
+}
+
+.technologies {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 3rem;
+    width: 50vw;
+}
+
+.more-splash {
+    width: 80vw;
 }

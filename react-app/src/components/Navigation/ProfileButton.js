@@ -5,6 +5,7 @@ import { clearCartOnLogoutThunk } from "../../store/cart";
 import { resetOnLogoutThunk } from "../../store/courses";
 import { useHistory } from "react-router-dom";
 import "./ProfileButton.css";
+import initials from "../../utils/initials";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -46,14 +47,16 @@ function ProfileButton({ user }) {
     <>
         {user ? (
         <>
-          <button onClick={openMenu}>
-            <i className="fas fa-user-circle" />
+          <button className="black-button profile-button" onClick={openMenu}>
+            {initials(user.name)}
           </button>
 
           <div className={ulClassName} ref={ulRef}>
-              <p>{user.name}</p>
-              <p>{user.email}</p>
-              <button onClick={handleLogout}>Log Out</button>
+              <p className="dropdown">{user.name}</p>
+              <hr className="line" />
+              <p className="dropdown">{user.email}</p>
+              <hr className="line" />
+              <p className="dropdown clickable" onClick={handleLogout}>Log Out</p>
           </div>
         </>
         ) : (

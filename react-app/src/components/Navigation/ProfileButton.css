@@ -2,3 +2,22 @@
     display: flex;
     gap: 10px;
 }
+
+.profile-button {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dropdown {
+    margin: 5px;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    color: gainsboro;
+}
