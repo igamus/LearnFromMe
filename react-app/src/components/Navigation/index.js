@@ -8,25 +8,14 @@ function Navigation({ isLoaded }){
 	const sessionUser = useSelector(state => state.session.user);
 
 	return (
-		<ul>
-			<li>
-				<NavLink exact to="/">Home</NavLink>
-			</li>
-			<li>
-				<NavLink exact to="/browse">Browse Courses</NavLink>
-			</li>
-			<li>
-				<NavLink exact to="/teach">Teach on LearnFromMe</NavLink>
-			</li>
-			<li>
-				<NavLink exact to="/cart">Cart</NavLink>
-			</li>
-			{isLoaded && (
-				<li>
-					<ProfileButton user={sessionUser} />
-				</li>
-			)}
-		</ul>
+		<div className="navbar">
+			<NavLink exact to="/" style={{fontFamily: "Oxygen, sans-serif", color: "black"}}>LearnFromMe</NavLink>
+			<NavLink exact to="/browse">Courses</NavLink>
+			<NavLink exact to="/teach">Teach on LearnFromMe</NavLink>
+			<NavLink exact to="/cart"><i className="fas fa-shopping-cart" /></NavLink>
+			{isLoaded && <ProfileButton user={sessionUser} />}
+			<a className="white-button" href="https://www.github.com/igamus"><i class="fab fa-github" /></a>
+		</div>
 	);
 }
 

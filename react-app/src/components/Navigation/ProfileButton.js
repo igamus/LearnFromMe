@@ -4,6 +4,7 @@ import { logout } from "../../store/session";
 import { clearCartOnLogoutThunk } from "../../store/cart";
 import { resetOnLogoutThunk } from "../../store/courses";
 import { useHistory } from "react-router-dom";
+import "./ProfileButton.css";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ function ProfileButton({ user }) {
     if (!showMenu) return;
 
     const closeMenu = (e) => {
+      if(ulRef.current === null) return;
       if (!ulRef.current.contains(e.target)) {
         setShowMenu(false);
       }
@@ -42,32 +44,31 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
-      </button>
-      <ul className={ulClassName} ref={ulRef}>
         {user ? (
-          <>
-            <li>{user.username}</li>
-            <li>{user.email}</li>
-            <li>
+        <>
+          <button onClick={openMenu}>
+            <i className="fas fa-user-circle" />
+          </button>
+
+          <div className={ulClassName} ref={ulRef}>
+              <p>{user.name}</p>
+              <p>{user.email}</p>
               <button onClick={handleLogout}>Log Out</button>
-            </li>
-          </>
+          </div>
+        </>
         ) : (
           <>
-            <button onClick={() => {
+            <button className="white-button nav-button" onClick={() => {
               history.push("/login")
               closeMenu();
             }}>Log in</button>
 
-            <button onClick={() => {
+            <button className="black-button nav-button" onClick={() => {
               history.push("/signup")
               closeMenu();
             }}>Sign up</button>
           </>
         )}
-      </ul>
     </>
   );
 }
