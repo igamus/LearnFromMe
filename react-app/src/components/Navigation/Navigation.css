@@ -4,9 +4,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 25px;
-  height: 5vh;
+  height: 10vh;
+  /* box-shadow: 0 1px 0px rgba(0,0,0,0.8); */
   box-shadow: 0 2px 4px rgba(0,0,0,0.8);
   width: 100vw;
+  position: sticky;
+  top: 0;
+  background-color: white;
 }
 
 .profile-dropdown {
@@ -19,4 +23,42 @@
 
 .hidden {
   display: none;
+}
+
+.cart {
+  color: black;
+}
+
+.cart:hover {
+  cursor: pointer;
+  color: #a435f0;
+}
+
+.navlink {
+  color: #757778;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navlink:hover {
+  color: #a435f0;
+}
+
+.fake-navlink {
+  color: #757778;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.logo {
+  color: black;
+  text-decoration: none;
+  font-weight: bolder;
+}
+
+.search-input {
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 20px;
+  width: 30vw;
 }

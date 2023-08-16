@@ -3,10 +3,10 @@
     font-family: 'Roboto', sans-serif;
 }
 
-a {
+/* a {
     color: #757778;
     text-decoration: none;
-}
+} */
 
 .error {
     color: red;
@@ -24,12 +24,22 @@ a {
     font-weight: bold;
 }
 
+.purple-button:hover {
+    cursor: pointer;
+    background-color: #a535f08a;
+}
+
 .black-button {
     color: white;
     background-color: black;
     border: 1px solid black;
     padding: 10px 20px;
     font-weight: bold;
+}
+
+.black-button:hover {
+    cursor: pointer;
+    background-color: #0000008a;
 }
 
 .white-button {
@@ -42,7 +52,7 @@ a {
 
 .white-button:hover {
     cursor: pointer;
-    background-color: gainsboro;
+    background-color: #e4e8eb8a;
 }
 
 /* display: flex;

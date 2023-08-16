@@ -57,7 +57,7 @@ function ProfileButton({ user }) {
           </div>
         </>
         ) : (
-          <>
+          <div className="auth-buttons-container">
             <button className="white-button nav-button" onClick={() => {
               history.push("/login")
               closeMenu();
@@ -67,7 +67,7 @@ function ProfileButton({ user }) {
               history.push("/signup")
               closeMenu();
             }}>Sign up</button>
-          </>
+          </div>
         )}
     </>
   );
