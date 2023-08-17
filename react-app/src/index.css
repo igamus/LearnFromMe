@@ -30,6 +30,13 @@
     background-color: #882dc4;
 }
 
+.purple-button:disabled {
+    cursor: unset;
+    color: white;
+    background-color: #a535f06d;
+    border: 1px solid #a535f06d;
+}
+
 .black-button {
     color: white;
     background-color: black;
