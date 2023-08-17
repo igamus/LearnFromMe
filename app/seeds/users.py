@@ -8,17 +8,17 @@ demo = User(
     password='password'
 )
 marnie = User(
-    name='marnie',
+    name='Marnie Zucker',
     email='marnie@aa.io',
     password='password'
 )
 bobbie = User(
-    name='bobbie',
+    name='Robert Lee',
     email='bobbie@aa.io',
     password='password'
 )
 buying_andy = User(
-    name='andy',
+    name='Andy Minhaj',
     email='andy@aa.io',
     password='password'
 )
@@ -27,7 +27,16 @@ dr_octopus = User(
     email='ooctavius@horizon.edu',
     password='password'
 )
-
+puppy = User(
+    name='Peaches',
+    email='peaches@mit.edu',
+    password='password'
+)
+beacon = User(
+    name='Mavis Beacon',
+    email='mavis@asu.edu',
+    password='password'
+)
 
 def seed_users():
     db.session.add(demo) # 1
@@ -35,6 +44,8 @@ def seed_users():
     db.session.add(bobbie) # 3
     db.session.add(buying_andy) # 4
     db.session.add(dr_octopus) # 5
+    db.session.add(puppy) # 6
+    db.session.add(beacon) # 7
     db.session.commit()
 
 
