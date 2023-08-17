@@ -1,0 +1,16 @@
+.create-course-button {
+    margin: 20px;
+}
+
+.course-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.management-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

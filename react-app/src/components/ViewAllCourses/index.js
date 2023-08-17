@@ -29,7 +29,7 @@ function ViewAllCourses() {
             {allCourses.map(course => (
                 <>
                     <div className="course-card" key={course.id}>
-                        <CourseCard course={course} />
+                        <CourseCard course={course} type="browse" />
                         <CartButton user={user} course={course} coursesInCart={coursesInCart} />
                     </div>
                     <hr className="line" />
