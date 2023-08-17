@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { deleteCourseThunk } from "../../store/courses";
 import { useModal } from "../../context/Modal";
+import "./DeleteModal.css";
 
 function DeleteModal({ type, id, from }) {
     const dispatch = useDispatch();
@@ -20,11 +21,11 @@ function DeleteModal({ type, id, from }) {
     }
 
     return(
-        <div>
-            <h1>Are you sure you would like to delete this {type === "course" ? "course" : null}?</h1>
-            <button onClick={handleDelete}>Yes</button>
-            <button onClick={closeModal}>No</button>
-        </div>
+        <>
+            <h1 className="modal-header">Are you sure you would like to delete this {type === "course" ? "course" : null}?</h1>
+            <button className="red-button" style={{padding: "20px", fontSide: "12pt"}} onClick={handleDelete}>Yes</button>
+            <button className="white-button" style={{padding: "20px", fontSide: "12pt"}} onClick={closeModal}>No</button>
+        </>
     );
 };
 

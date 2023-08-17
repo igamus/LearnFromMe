@@ -5,7 +5,6 @@ import { readSingleCourseThunk } from "../../store/courses";
 import DeleteModal from "../DeleteModal";
 import OpenModalButton from "../OpenModalButton";
 import { useHistory } from "react-router-dom";
-import "./CoursePageLearn.css";
 
 function CoursePageLearn() {
     const { courseId } = useParams();
