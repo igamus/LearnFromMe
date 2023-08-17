@@ -25,12 +25,15 @@ function CoursePage() {
     const coursesInCart = useSelector(state => Object.keys(state.cart).map(key => parseInt(key)));
     const user = useSelector(state => state.session.user);
 
+    console.log("course:", course)
+
     return courseLoaded && (
         <div className="course-page">
 
             <div className="sidebar">
-                 {/* <img className="course-card-image" src={course.courseImage} alt="course-thumbnail" /> */}
-                <img className="course-blurb-image" src="https://images.pexels.com/photos/2377182/pexels-photo-2377182.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="course-thumbnail" />
+                <img className="course-blurb-image" src={course.courseImage} alt="course-thumbnail" />
+                {/* When testing css, use placeholder below (v) instead of the above (^) */}
+                {/* <img className="course-blurb-image" src="https://images.pexels.com/photos/2377182/pexels-photo-2377182.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="course-thumbnail" /> */}
                 <div className="course-blurb">
                     <CartButtonSingle user={user} course={course} coursesInCart={coursesInCart} />
                 </div>

@@ -30,8 +30,9 @@ function CoursePageLearn() {
             </div>
             <div className="course-page">
                 <div className="sidebar">
-                    {/* <video className="course-card-image" src={course.courseVideo} alt="course-thumbnail" /> */}
-                    <video controls className="course-blurb-image" src="" />
+                    <video controls className="course-blurb-image" src={course.courseVideo} alt="course-video" />
+                    {/* When testing css, use placeholder below (v) instead of the above (^) */}
+                    {/* <video controls className="course-blurb-image" src="" /> */}
                     <div className="course-blurb">
                         <h2>${course.price}</h2>
                         <button className="white-button page-cart" onClick={(e) => {
