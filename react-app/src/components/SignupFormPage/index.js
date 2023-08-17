@@ -38,15 +38,18 @@ function SignupFormPage() {
   };
 
   return (
-    <div>
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
-        <ul>
-          {errors.map((error, idx) => <p key={idx}>{error}</p>)}
-        </ul>
-        <label>
-          Name
+    <div className="auth-page">
+      <h1 className="auth-header">Sign up and start learning</h1>
+      <form className="auth-form" onSubmit={handleSubmit}>
+
+        <div className="error-field">
+          {errors.map((error, idx) => <li key={idx} className="error">{error}</li>)}
+        </div>
+
+
           <input
+            className="auth-div auth-input"
+            placeholder="Full name"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -54,10 +57,10 @@ function SignupFormPage() {
             min="2"
             max="100"
           />
-        </label>
-        <label>
-          Email
+
           <input
+            className="auth-div auth-input"
+            placeholder="Email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -65,10 +68,10 @@ function SignupFormPage() {
             min="7"
             max="255"
           />
-        </label>
-        <label>
-          Password
+
           <input
+            className="auth-div auth-input"
+            placeholder="Password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -76,10 +79,10 @@ function SignupFormPage() {
             min="6"
             max="255"
           />
-        </label>
-        <label>
-          Confirm Password
+
           <input
+            className="auth-div auth-input"
+            placeholder="Confirm password"
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -87,9 +90,15 @@ function SignupFormPage() {
             min="6"
             max="255"
           />
-        </label>
-        <button type="submit" disabled={disable}>Sign Up</button>
+
+        <button className="purple-button auth-div" type="submit" disabled={disable}>Sign Up</button>
       </form>
+
+      <p></p>
+
+      <hr className="auth-line" />
+
+      <p>Already have an account? <a href="/login" className="purple-text">Log in</a></p>
     </div>
   );
 }

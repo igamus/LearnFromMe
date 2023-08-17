@@ -5,6 +5,12 @@
 
 .error {
     color: red;
+    list-style-type: none;
+}
+
+.error-field {
+    display: flex;
+    flex-direction: column;
 }
 
 .clickable {

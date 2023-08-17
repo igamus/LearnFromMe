@@ -29,37 +29,53 @@ function LoginFormPage() {
   };
 
   return (
-    <div>
-      <h1 className="login-header">Log in to your LearnFromMe account</h1>
-      <form className="login-form" onSubmit={handleSubmit}>
-        <ul>
+    <div className="auth-page">
+
+      <h1 className="auth-header">Log in to your LearnFromMe account</h1>
+
+      <form className="auth-form" onSubmit={handleSubmit}>
+
+        <div className="error-field">
           {errors.map((error, idx) => (
             <li key={idx} className="error">{error}</li>
           ))}
-        </ul>
-          <div className="fake-button">
+        </div>
 
-          </div>
+          {/* <button disabled="true" className="white-button auth-div"><i class="fab fa-google auth-icon" /> Continue with Google</button>
+          <button disabled="true" className="white-button auth-div"><i class="fab fa-facebook auth-icon" /> Continue with Facebook</button>
+          <button disabled="true" className="white-button auth-div"><i class="fab fa-apple auth-icon" /> Continue with Apple</button> */}
+
           <input
+            className="auth-div auth-input"
             placeholder="Email"
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
+
           <input
+            className="auth-div auth-input"
             placeholder="Password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        <button className="purple-button" type="submit" disabled={disable}>Log In</button>
+
+        <button className="purple-button auth-div" type="submit" disabled={disable}>Log In</button>
+
       </form>
-      <span> or <span className="purple-text clickable" onClick={async e => {
+
+      <p className="demo-prompt"> or <span className="purple-text clickable" onClick={async e => {
         e.preventDefault()
         await dispatch(login("demo@aa.io","password"))
-      }}>Log in as a Demo User</span></span>
+      }}>Log in as a Demo User</span></p>
+
+      <hr className="auth-line" />
+
+      <p>Don't have an account? <a href="/signup" className="purple-text">Sign up</a></p>
+      <a href="https://images.pexels.com/photos/1458916/pexels-photo-1458916.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" className="purple-text">Look at this picture of a puppy</a>
     </div>
   );
 }
