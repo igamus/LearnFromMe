@@ -1,0 +1,56 @@
+.course-form-page {
+    display: flex;
+    flex-direction: column;
+    padding: 32px 100px;
+    align-items: center;
+}
+
+.course-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.course-label {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.course-div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.wyl-label-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.wyl-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.course-input {
+    height: 60px;
+    width: 400px
+}
+
+.course-heading {
+    display: flex;
+    flex-direction: column;
+    width: 440px;
+}
+
+.course-price-input {
+    width: 440px;
+    font-size: 1.2rem;
+}
+
+.price-input {
+    height: 60px;
+    width: 390px;
+}

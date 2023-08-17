@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createCourseThunk, updateCourseThunk } from "../../store/courses";
 import decimalCount from "../../utils/decimalCount";
+import "./CourseForm.css";
 
 function CourseForm({ type, starterForm }) {
     console.log("type:", type)
@@ -97,104 +98,135 @@ function CourseForm({ type, starterForm }) {
     }, [name, courseImage, price, whatYoullLearn1, courseVideo]);
 
     return (
-        <div>
-            <h1>{type === "create" ? "Create" : "Update"} your course</h1>
-            <h4>* indicates a required field</h4>
+        <div className="course-form-page">
+            <div className="course-heading">
+                <h1 style={{marginBottom: "0"}}>{type === "create" ? "Create" : "Update"} your course</h1>
+                <h4 style={{marginTop: "0"}}>* indicates a required field</h4>
+            </div>
+            <div className="error-field">
             {errors ?
-                errors.map((error, idx) => <p key={idx}>{error}</p>)
+                errors.map((error, idx) => <p key={idx} className="error">{error}</p>)
                     :
                 null
             }
+            </div>
             <form
+                className="course-form"
                 onSubmit={handleSubmit}
                 encType="multipart/form-data"
             >
-                <label htmlFor="course-name">Name*</label>
-                <input
-                    id="course-name"
-                    placeholder="Course name"
-                    type="text"
-                    min="5"
-                    max="255"
-                    required
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                />*
+                <div className="course-div">
+                    <label className="course-label" htmlFor="course-name">Name*</label>
+                    <input
+                        className="course-input"
+                        id="course-name"
+                        placeholder="Course name"
+                        type="text"
+                        min="5"
+                        max="255"
+                        required
+                        value={name}
+                        onChange={e => setName(e.target.value)}
+                    />
+                </div>
 
-                <label htmlFor="description">Description</label>
-                <input
-                    id="description"
-                    placeholder="Describe your course!"
-                    type="text"
-                    max="255"
-                    value={description}
-                    onChange={e => setDescription(e.target.value)}
-                />
+                <div className="course-div">
+                    <label className="course-label" htmlFor="description">Description</label>
+                    <input
+                        className="course-input"
+                        id="description"
+                        placeholder="Describe your course!"
+                        type="text"
+                        max="255"
+                        value={description}
+                        onChange={e => setDescription(e.target.value)}
+                    />
+                </div>
 
-                <label htmlFor="course-image">Thumbnail Image*</label>
-                <input
-                    id="course-image"
-                    type="file"
-                    onChange={e => setCourseImage(e.target.files[0])}
-                    accept="image/*"
-                />*
+                <div className="course-div">
+                    <label className="course-label" htmlFor="course-image">Thumbnail Image*</label>
+                    <input
+                        id="course-image"
+                        type="file"
+                        onChange={e => setCourseImage(e.target.files[0])}
+                        accept="image/*"
+                    />
+                </div>
 
-                <label htmlFor="price">Price*</label>
-                $<input
-                    id="price"
-                    placeholder="Price"
-                    type="number"
-                    required
-                    min="0.01"
-                    step="any"
-                    value={price}
-                    onChange={e => setPrice(e.target.value)}
-                />*
+                <div className="course-div">
+                    <label className="course-label" htmlFor="price">Price*</label>
+                    <span className="course-price-input">$<input
+                        className="price-input"
+                        id="price"
+                        placeholder="Price"
+                        type="number"
+                        required
+                        min="0.01"
+                        step="any"
+                        value={price}
+                        onChange={e => setPrice(e.target.value)}
+                    /></span>
+                </div>
 
-                <label htmlFor="level">Level</label>
-                <select
-                    id="level"
-                    value={level}
-                    onChange={e => setLevel(e.target.value)}
-                >
-                    <option value="Beginner">Beginner</option>
-                    <option value="Intermediate">Intermediate</option>
-                    <option value="Advanced">Advanced</option>
-                </select>*
+                <div className="course-div">
+                    <label className="course-label" htmlFor="level">Level</label>
+                    <select
+                        className="course-input"
+                        id="level"
+                        value={level}
+                        onChange={e => setLevel(e.target.value)}
+                    >
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                    </select>
+                </div>
 
-                <label htmlFor="whatyoulllearn1">What You'll Learn: List up to three takeaways from your course</label>
-                *Must include at least one takeaway
-                <input
-                    id="whatyoulllearn1"
-                    placeholder="Tell people what they'll learn!"
-                    type="text"
-                    required
-                    value={whatYoullLearn1}
-                    onChange={e => setWhatYoullLearn1(e.target.value)}
-                />*
-                <input
-                    id="whatyoulllearn2"
-                    placeholder="Add another takeaway (optional)"
-                    type="text"
-                    value={whatYoullLearn2}
-                    onChange={e => setWhatYoullLearn2(e.target.value)}
-                />
-                <input
-                    id="whatyoulllearn3"
-                    placeholder="Add another takeaway (optional)"
-                    type="text"
-                    value={whatYoullLearn3}
-                    onChange={e => setWhatYoullLearn3(e.target.value)}
-                />
+                <div className="course-div">
+                    <div className="wyl-label-container">
+                        <label className="course-label" htmlFor="whatyoulllearn1">What You'll Learn: List up to three takeaways from your course</label>
+                        <div>*Must include at least one takeaway</div>
+                    </div>
+                    <div className="wyl-input-container">
+                        <input
+                            className="course-input"
+                            id="whatyoulllearn1"
+                            placeholder="Tell people what they'll learn!"
+                            type="text"
+                            required
+                            value={whatYoullLearn1}
+                            onChange={e => setWhatYoullLearn1(e.target.value)}
+                        />
+                        <input
+                            className="course-input"
+                            id="whatyoulllearn2"
+                            placeholder="Add another takeaway (optional)"
+                            type="text"
+                            value={whatYoullLearn2}
+                            onChange={e => setWhatYoullLearn2(e.target.value)}
+                        />
+                        <input
+                            className="course-input"
+                            id="whatyoulllearn3"
+                            placeholder="Add another takeaway (optional)"
+                            type="text"
+                            value={whatYoullLearn3}
+                            onChange={e => setWhatYoullLearn3(e.target.value)}
+                        />
+                    </div>
+                </div>
 
-                <label htmlFor="course-video">Upload your course!*</label>
-                <input
-                    id="course-video"
-                    type="file"
-                    onChange={e => setCourseVideo(e.target.files[0])}
-                    accept="video/*"
-                />*
-                <button type="submit" disabled={disable}>Submit</button>
+                <div className="course-div">
+                    <label className="course-label" htmlFor="course-video">Upload your course!*</label>
+                    <input
+                        id="course-video"
+                        type="file"
+                        onChange={e => setCourseVideo(e.target.files[0])}
+                        accept="video/*"
+                    />
+                </div>
+
+                <button className="purple-button" style={{height: "60px", width: "400px"}} type="submit" disabled={disable}>Submit</button>
                 {(submissionLoading) && <p>Loading...</p>}
             </form>
         </div>
