@@ -1,0 +1,28 @@
+.course-card-content {
+    display: flex;
+    align-items: center;
+}
+
+.course-card-content:hover {
+    opacity: 70%;
+}
+
+.course-card-image {
+    object-fit: cover;
+    height: 135px;
+    margin-right: 20px;
+    width: 240px;
+}
+
+.course-name {
+    margin: 0;
+    font-weight: bold;
+}
+
+.instructor {
+    color: #888084;
+}
+
+.courseid {
+    font-size: 0.7rem;
+}

@@ -1,0 +1,14 @@
+.add-to-cart {
+    height: 50px;
+    width: 175px;
+}
+
+.cart-button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.price {
+    font-weight: bold;
+}

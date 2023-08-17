@@ -1,3 +1,10 @@
-.clickable {
-    cursor: pointer;
+.course-card {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: center;
+}
+
+.all-courses-header {
+    padding: 0 20px;
 }
