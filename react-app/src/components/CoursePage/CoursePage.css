@@ -1,0 +1,70 @@
+.course-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.blackground {
+    background-color: #2d2f31;
+    height: 350px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 32px 100px;
+}
+
+.course-page-nav {
+    color: #bdb7d2;
+}
+
+.course-page-content {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+}
+
+.what-youll-learn-container {
+    border: 1px solid #e2e6e9;
+    padding: 24px;
+    padding-bottom: 8px;
+    margin: 32px 100px;
+    width: 50vw;
+}
+
+.what-youll-learn-header {
+    margin: 0;
+}
+
+.checkmark {
+    font-size: 1.2rem;
+    margin-right: 10px;
+}
+
+.takeaway {
+    display: flex;
+    align-items: center;
+}
+
+.sidebar {
+    position: fixed;
+    left: calc(110px + 50vw + 50px);
+    margin-top: 32px;
+    padding-top: 0;
+    width: 30rem;
+    background-color: white;
+    border: 1px solid white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.course-blurb-image {
+    object-fit: cover;
+    height: 200px;
+    width: 100%;
+}
+
+.course-blurb {
+    padding: 24px;
+}
+
+.course-blurb-button {
+    width: 100%;
+}

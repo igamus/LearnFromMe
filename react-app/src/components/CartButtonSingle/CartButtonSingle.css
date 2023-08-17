@@ -1,0 +1,14 @@
+.cart-button-container-single {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.page-cart {
+    height: 50px;
+    width: 100%;
+}
+
+.price {
+    font-weight: bold;
+}

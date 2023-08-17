@@ -5,13 +5,14 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import "./CartButton.css";
 
-function CartButton({ user, course, coursesInCart }) {
+function CartButton({ type, user, course, coursesInCart }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
+
     return (
-        <div className="cart-button-container">
-            <p className="price"><s className="old-price">${(Math.floor(parseFloat(course.price)) * 9).toFixed(2)}</s> ${parseFloat(course.price).toFixed(2)}</p>
+        <div className="cart-button-container-browse">
+            <h3 className="price"><s className="old-price">${(Math.floor(parseFloat(course.price)) * 9).toFixed(2)}</s> ${parseFloat(course.price).toFixed(2)}</h3>
             {
                 user === null
                     ?

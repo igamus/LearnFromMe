@@ -3,7 +3,7 @@
     width: 175px;
 }
 
-.cart-button-container {
+.cart-button-container-browse {
     display: flex;
     flex-direction: column;
     align-items: center;
