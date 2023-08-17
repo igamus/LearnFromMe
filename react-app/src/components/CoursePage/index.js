@@ -23,7 +23,6 @@ function CoursePage() {
 
     const course = useSelector(state => state.courses.singleCourse);
     const coursesInCart = useSelector(state => Object.keys(state.cart).map(key => parseInt(key)));
-    // console.log("cart:", cart)
     const user = useSelector(state => state.session.user);
 
     return courseLoaded && (

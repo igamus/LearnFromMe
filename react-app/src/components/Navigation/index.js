@@ -17,7 +17,7 @@ function Navigation({ isLoaded }){
 			<NavLink className="cart" exact to="/cart"><i className="fas fa-shopping-cart" /></NavLink>
 			<div className="auth-buttons-container">
 				{isLoaded && <ProfileButton user={sessionUser} />}
-				<a className="white-button" href="https://www.github.com/igamus"><i class="fab fa-github" /></a>
+				<a className="white-button" href="https://www.github.com/igamus"><i className="fab fa-github" /></a>
 			</div>
 		</div>
 	);

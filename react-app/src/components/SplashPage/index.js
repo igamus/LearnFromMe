@@ -15,9 +15,9 @@ function SplashPage() {
             <div className="tech-stack">
                 <span>Made with:</span>
                 <div className="technologies">
-                    <i class="fab fa-js-square" />
-                    <i class="fab fa-react" />
-                    <i class="fab fa-python" />
+                    <i className="fab fa-js-square" />
+                    <i className="fab fa-react" />
+                    <i className="fab fa-python" />
                     <img src="https://img.icons8.com/ios/100/flask.png" alt="flask"/>
                     {/* https://icons8.com/ */}
                 </div>

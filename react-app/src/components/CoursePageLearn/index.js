@@ -5,6 +5,7 @@ import { readSingleCourseThunk } from "../../store/courses";
 import DeleteModal from "../DeleteModal";
 import OpenModalButton from "../OpenModalButton";
 import { useHistory } from "react-router-dom";
+import "./CoursePageLearn.css";
 
 function CoursePageLearn() {
     const { courseId } = useParams();
@@ -16,12 +17,7 @@ function CoursePageLearn() {
         dispatch(readSingleCourseThunk(courseId)).then(() => setCourseLoaded(true));
     }, [dispatch]);
 
-    // useEffect(() => {
-    //     dispatch(readCartThunk());
-    // }, [dispatch]);
-
     const course = useSelector(state => state.courses.singleCourse);
-    // const cart = useSelector(state => state.cart);
     const user = useSelector(state => state.session.user);
 
     // if not the instructor, reroute
@@ -29,25 +25,41 @@ function CoursePageLearn() {
         history.push("/");
     }
 
-
     return courseLoaded && (
         <div>
-            <button onClick={() => history.push("/teach")}>Back</button>
-            {user?.id === course.instructor.id
-                ?
-                    <div>
-                        <button onClick={(e) => {
+            <div>
+            </div>
+            <div className="course-page">
+                <div className="sidebar">
+                    {/* <video className="course-card-image" src={course.courseVideo} alt="course-thumbnail" /> */}
+                    <video controls className="course-blurb-image" src="" />
+                    <div className="course-blurb">
+                        <h2>${course.price}</h2>
+                        <button className="white-button page-cart" onClick={(e) => {
                             e.preventDefault();
                             history.push(`/courses/course/${courseId}/update`)}
                         }>Update Course</button>
-                        <OpenModalButton buttonText="Delete This Course" modalComponent={<DeleteModal type="course" id={courseId} from="page" />} />
+                        <p style={{height: "10px", margin: "0"}}></p>
+                        <OpenModalButton className="red-button page-cart" buttonText="Delete This Course" modalComponent={<DeleteModal type="course" id={courseId} from="page" />} />
                     </div>
-                :
-            null}
-            <h1>{course.name}</h1>
-            <h2>{course.instructor.name}</h2>
-            <p>{course.description}</p>
-            <p>{course.whatYoullLearn}</p>
+                </div>
+
+                <div className="blackground">
+                    <div className="course-page-content">
+                        <div className="course-page-nav clickable" onClick={() => history.push("/teach")}>Teach on LearnFromMe</div>
+                        <h1>{course.name}</h1>
+                        <h2>{course.description}</h2>
+                        <p>Created by <span className="course-page-nav">{course.instructor.name}</span></p>
+                    </div>
+                </div>
+
+                <div className="what-youll-learn-container">
+                    <h2 className="what-youll-learn-header">What you'll learn</h2>
+                    {course.whatYoullLearn.split("|").map((takeaway, idx) => (
+                        <p key={idx} className="takeaway"><span className="checkmark">&#10004;</span> {takeaway}</p>
+                    ))}
+                </div>
+            </div>
         </div>
     );
 };

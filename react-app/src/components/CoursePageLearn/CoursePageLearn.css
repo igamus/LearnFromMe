@@ -1,0 +1,9 @@
+.red-button {
+    color: white;
+    background-color: red;
+}
+
+.red-button:hover {
+    cursor: pointer;
+    background-color: rgba(255, 0, 0, 0.74);
+}

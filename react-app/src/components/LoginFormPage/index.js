@@ -41,9 +41,9 @@ function LoginFormPage() {
           ))}
         </div>
 
-          {/* <button disabled="true" className="white-button auth-div"><i class="fab fa-google auth-icon" /> Continue with Google</button>
-          <button disabled="true" className="white-button auth-div"><i class="fab fa-facebook auth-icon" /> Continue with Facebook</button>
-          <button disabled="true" className="white-button auth-div"><i class="fab fa-apple auth-icon" /> Continue with Apple</button> */}
+          {/* <button disabled="true" className="white-button auth-div"><i className="fab fa-google auth-icon" /> Continue with Google</button>
+          <button disabled="true" className="white-button auth-div"><i className="fab fa-facebook auth-icon" /> Continue with Facebook</button>
+          <button disabled="true" className="white-button auth-div"><i className="fab fa-apple auth-icon" /> Continue with Apple</button> */}
 
           <input
             className="auth-div auth-input"
