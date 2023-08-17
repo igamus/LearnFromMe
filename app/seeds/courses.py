@@ -51,7 +51,7 @@ def seed_courses():
             "instructor_id": 7,
             "level": "Intermediate",
             "what_youll_learn": "Color correction",
-            "course_video", "https://s3.us-east-2.amazonaws.com/lfm.video/8442a783790d45ff8418b36baa51817b.mp4"
+            "course_video": "https://s3.us-east-2.amazonaws.com/lfm.video/8442a783790d45ff8418b36baa51817b.mp4"
         },
         {
             "name": "Public Speaking",
@@ -61,7 +61,7 @@ def seed_courses():
             "instructor_id": 3,
             "level": "Beginner",
             "what_youll_learn": "Articulation|Gesticulation|Mastication",
-            "course_video", "https://s3.us-east-2.amazonaws.com/lfm.video/26709abcb6224d37af3099d930480fa4.mp4"
+            "course_video": "https://s3.us-east-2.amazonaws.com/lfm.video/26709abcb6224d37af3099d930480fa4.mp4"
         },
         {
             "name": "SEO like a pro",
@@ -71,7 +71,7 @@ def seed_courses():
             "instructor_id": 4,
             "level": "Beginner",
             "what_youll_learn": "Clicking|Bing|Safe Search",
-            "course_video", "https://s3.us-east-2.amazonaws.com/lfm.video/b4bad8b917a944f48d54a150d239b604.mp4"
+            "course_video": "https://s3.us-east-2.amazonaws.com/lfm.video/b4bad8b917a944f48d54a150d239b604.mp4"
         },
         {
             "name": "Robotics",
@@ -81,7 +81,7 @@ def seed_courses():
             "instructor_id": 5,
             "level": "Intermediate",
             "what_youll_learn": "How to identify and subdue Spider-Man",
-            "course_video", "https://s3.us-east-2.amazonaws.com/lfm.video/8ebf57c2cbc34fe881b1d7357cd90784.mp4"
+            "course_video": "https://s3.us-east-2.amazonaws.com/lfm.video/8ebf57c2cbc34fe881b1d7357cd90784.mp4"
         },
         {
             "name": "Advanced Drumming",
@@ -91,7 +91,7 @@ def seed_courses():
             "instructor_id": 7,
             "level": "Advanced",
             "what_youll_learn": "Fills",
-            "course_video", "https://s3.us-east-2.amazonaws.com/lfm.video/b3d7b41d25b043c3b04b5a81fc58fba1.mp4"
+            "course_video": "https://s3.us-east-2.amazonaws.com/lfm.video/b3d7b41d25b043c3b04b5a81fc58fba1.mp4"
         },
         {
             "name": "Step 'n' Flex",
@@ -101,7 +101,7 @@ def seed_courses():
             "instructor_id": 4,
             "level": "Advanced",
             "what_youll_learn": "Step|Flip|Not Trip",
-            "course_video", "https://s3.us-east-2.amazonaws.com/lfm.video/dd935c2283d7467fbe5765c2a4c1de9d.mp4"
+            "course_video": "https://s3.us-east-2.amazonaws.com/lfm.video/dd935c2283d7467fbe5765c2a4c1de9d.mp4"
         },
         {
             "name": "Dress for Success",
@@ -111,7 +111,7 @@ def seed_courses():
             "instructor_id": 4,
             "level": "Intermediate",
             "what_youll_learn": "Find clothes that fit|Determine your face and body shape|Color coordinating",
-            "course_video", "https://s3.us-east-2.amazonaws.com/lfm.video/8abb1826d1a64e02ac9d129817c7f5ae.mp4"
+            "course_video": "https://s3.us-east-2.amazonaws.com/lfm.video/8abb1826d1a64e02ac9d129817c7f5ae.mp4"
         },
         {
             "name": "Cloud Computing: An Overview",
@@ -121,7 +121,7 @@ def seed_courses():
             "instructor_id": 2,
             "level": "Beginner",
             "what_youll_learn": "Storage|Management|Security",
-            "course_video", "https://s3.us-east-2.amazonaws.com/lfm.video/9025dd212e1b40b5a4ca50097fefa4b3.mp4"
+            "course_video": "https://s3.us-east-2.amazonaws.com/lfm.video/9025dd212e1b40b5a4ca50097fefa4b3.mp4"
         },
         {
             "name": "Work(out) Smarter not Harder",
@@ -131,7 +131,7 @@ def seed_courses():
             "instructor_id": 3,
             "level": "Beginner",
             "what_youll_learn": "Drop weight without having to wait|All gain, no pain",
-            "course_video", "https://s3.us-east-2.amazonaws.com/lfm.video/e0ddd9415e8a40c6a1812c00fd15dce1.mp4"
+            "course_video": "https://s3.us-east-2.amazonaws.com/lfm.video/e0ddd9415e8a40c6a1812c00fd15dce1.mp4"
         },
         {
             "name": "Ethical Hacking",
@@ -141,7 +141,7 @@ def seed_courses():
             "instructor_id": 2,
             "level": "Beginner",
             "what_youll_learn": "How to use two monitors|What sweats cost $200|What certs to get to fast-track into cyber",
-            "course_video", "https://s3.us-east-2.amazonaws.com/lfm.video/d5f386c9fa8f43718a26d28447e68e59.mp4"
+            "course_video": "https://s3.us-east-2.amazonaws.com/lfm.video/d5f386c9fa8f43718a26d28447e68e59.mp4"
         },
         {
             "name": "Hack the Full Stack",
@@ -151,7 +151,7 @@ def seed_courses():
             "instructor_id": 2,
             "level": "Beginner",
             "what_youll_learn": "Vanilla JS|Node.js|React.js",
-            "course_video", "https://s3.us-east-2.amazonaws.com/lfm.video/db62da734829482c84633e9ba6d3425b.mp4"
+            "course_video": "https://s3.us-east-2.amazonaws.com/lfm.video/db62da734829482c84633e9ba6d3425b.mp4"
         },
         {
             "name": "Computers",
@@ -161,7 +161,7 @@ def seed_courses():
             "instructor_id": 1,
             "level": "Intermediate",
             "what_youll_learn": "Writing emails|Sending emails|Receiving emails",
-            "course_video", "https://s3.us-east-2.amazonaws.com/lfm.video/dacb66183ba5481fbcc23de01ca13280.mp4"
+            "course_video": "https://s3.us-east-2.amazonaws.com/lfm.video/dacb66183ba5481fbcc23de01ca13280.mp4"
         },
         {
             "name": "Intro to Quantum Physics",
@@ -171,7 +171,7 @@ def seed_courses():
             "instructor_id": 1,
             "level": "Intermediate",
             "what_youll_learn": "Why this meme is funny|What quantum has to do with electronics|How to solve wave equations",
-            "course_video", "https://s3.us-east-2.amazonaws.com/lfm.video/69412c5cc53f48e294ee192186539587.mp4"
+            "course_video": "https://s3.us-east-2.amazonaws.com/lfm.video/69412c5cc53f48e294ee192186539587.mp4"
         }
     ]:
         db.session.add(Course(**course))
