@@ -83,3 +83,7 @@
 input {
     font-size: 1.1rem;
 }
+
+.vsc-initialized {
+    margin: 0;
+}
