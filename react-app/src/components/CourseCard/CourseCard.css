@@ -4,7 +4,7 @@
 }
 
 .course-card-content:hover {
-    opacity: 70%;
+    opacity: 0.7;
 }
 
 .course-card-image {

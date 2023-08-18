@@ -45,6 +45,7 @@ function CoursePage() {
                     <h1>{course.name}</h1>
                     <h2>{course.description}</h2>
                     <p>Created by <span className="course-page-nav">{course.instructor.name}</span></p>
+                    <div className="courseid">Recommended skill level: {course.level}</div>
                 </div>
             </div>
 

@@ -19,7 +19,8 @@ function CourseCard({ course, type }) {
                 <h2 className="course-name">{course.name}</h2>
                 <p>{course.description}</p>
                 <p className="instructor">{course.instructor.name}</p>
-                <div className="courseid">Course Id: {course.id}</div>
+                <p className="courseid">Recommended skill level: {course.level}</p>
+                {/* <div className="courseid">Course Id: {course.id}</div> */}
             </div>
         </div>
     );

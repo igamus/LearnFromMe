@@ -1,5 +1,6 @@
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
+import "./EncourageLoginModal.css";
 
 function EncourageLoginModal() {
     const history = useHistory();
@@ -17,9 +18,11 @@ function EncourageLoginModal() {
 
     return (
         <div>
-            <h1>Log in to add to keep shopping!</h1>
-            <button onClick={toLogin}>Log In</button>
-            <button onClick={toSignup}>Sign Up</button>
+            <h1 style={{textAlign: "center"}}>Log in to keep shopping!</h1>
+            <div className="auth-modal-buttons">
+                <button className="purple-button encourage-button" onClick={toLogin}>Log In</button>
+                <button className="white-button encourage-button" onClick={toSignup}>Sign Up</button>
+            </div>
         </div>
     );
 };

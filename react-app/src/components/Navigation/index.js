@@ -13,8 +13,8 @@ function Navigation({ isLoaded }){
 			<NavLink className="navlink" exact to="/browse">Courses</NavLink>
 			<input className="search-input" placeholder="&#x1F50D; Search feature coming soon!" type="text" disabled={true} />
 			<div className="fake-navlink">LearnFromMe Business</div>
-			<NavLink className="navlink" exact to="/teach">Teach on LearnFromMe</NavLink>
-			<NavLink className="cart" exact to="/cart"><i className="fas fa-shopping-cart" /></NavLink>
+			<NavLink className="navlink" exact to="/teach" onClick={() => !sessionUser ? alert("Please log in to use this feature") : null}>Teach on LearnFromMe</NavLink>
+			<NavLink className="cart" exact to="/cart" onClick={() => !sessionUser ? alert("Please log in to use this feature") : null}><i className="fas fa-shopping-cart" /></NavLink>
 			<div className="auth-buttons-container">
 				{isLoaded && <ProfileButton user={sessionUser} />}
 				<a className="white-button" href="https://www.github.com/igamus"><i className="fab fa-github" /></a>

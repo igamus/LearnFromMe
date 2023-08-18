@@ -50,6 +50,7 @@ function CoursePageLearn() {
                         <h1>{course.name}</h1>
                         <h2>{course.description}</h2>
                         <p>Created by <span className="course-page-nav">{course.instructor.name}</span></p>
+                        <p className="courseid">Recommended skill level: {course.level}</p>
                     </div>
                 </div>
 

@@ -18,7 +18,7 @@ function SplashPage() {
                     <i className="fab fa-js-square" />
                     <i className="fab fa-react" />
                     <i className="fab fa-python" />
-                    <img src="https://img.icons8.com/ios/100/flask.png" alt="flask"/>
+                    <img src="https://img.icons8.com/fluency/96/6a6f73/flask.png" alt="flask" />
                     {/* https://icons8.com/ */}
                 </div>
             </div>

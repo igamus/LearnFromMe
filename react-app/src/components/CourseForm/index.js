@@ -28,6 +28,7 @@ function CourseForm({ type, starterForm }) {
 
     const handleSubmit = async e => {
         e.preventDefault();
+        setErrors([]);
 
         const newErrors = [];
         const whatYoullLearnArr = [whatYoullLearn1];
@@ -72,7 +73,7 @@ function CourseForm({ type, starterForm }) {
             try {
                 const newCourse = await dispatch(createCourseThunk(formData));
                 console.log("newCourse:", newCourse);
-                history.push(`/courses/course/${newCourse.id}`);
+                history.push(`/learn/${newCourse.id}`);
             } catch(errors) {
                 setSubmissionLoading(false);
                 console.log("Errors creating:", errors);
@@ -82,7 +83,7 @@ function CourseForm({ type, starterForm }) {
         if (type === "update") {
             try {
                 const e = await dispatch(updateCourseThunk(formData, starterForm.id));
-                history.push(`/courses/course/${starterForm.id}`)
+                history.push(`/learn/${starterForm.id}`)
             } catch (errors) {
                 setSubmissionLoading(false);
                 console.log("Errors updating:", errors);
@@ -102,13 +103,6 @@ function CourseForm({ type, starterForm }) {
             <div className="course-heading">
                 <h1 style={{marginBottom: "0"}}>{type === "create" ? "Create" : "Update"} your course</h1>
                 <h4 style={{marginTop: "0"}}>* indicates a required field</h4>
-            </div>
-            <div className="error-field">
-            {errors ?
-                errors.map((error, idx) => <p key={idx} className="error">{error}</p>)
-                    :
-                null
-            }
             </div>
             <form
                 className="course-form"
@@ -226,8 +220,14 @@ function CourseForm({ type, starterForm }) {
                     />
                 </div>
 
-                <button className="purple-button" style={{height: "60px", width: "400px"}} type="submit" disabled={disable}>Submit</button>
-                {(submissionLoading) && <p>Loading...</p>}
+                <button className="purple-button" style={{height: "60px", width: "400px"}} type="submit" disabled={submissionLoading || disable}>{submissionLoading ? "Sending..." : "Submit"}</button>
+                <div className="error-field">
+                    {errors ?
+                        errors.map((error, idx) => <p key={idx} className="error">{error}</p>)
+                            :
+                        null
+                    }
+                </div>
             </form>
         </div>
     );
