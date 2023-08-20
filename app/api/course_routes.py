@@ -50,12 +50,26 @@ def update_course(course_id): # need to update the edit of this
         course.name = form.data["name"]
         course.description = form.data["description"]
         if form.data["course_image"]:
-            course.course_image = form.data["course_image"]
+            course_image = form.data["course_image"]
+            course_image.filename = get_unique_filename(course_image.filename)
+            image_upload = upload_photo_file_to_s3(course_image)
+            print(image_upload)
+            if "url" not in image_upload:
+                # if the dictionary has no url key, there was an error
+                return {"errors": validation_errors_to_error_messages(image_upload)} # need to test
+            course.course_image = image_upload["url"]
         course.price = form.data["price"]
         course.level = form.data["level"]
         course.what_youll_learn = form.data["what_youll_learn"]
         if form.data["course_video"]:
-            course.course_video = form.data["course_video"]
+            course_video = form.data["course_video"]
+            course_video.filename = get_unique_filename(course_video.filename)
+            video_upload = upload_video_file_to_s3(course_video)
+            print(video_upload)
+            if "url" not in video_upload:
+                # if the dictionary has no url key, there was an error
+                return {"errors": validation_errors_to_error_messages(video_upload)} # need to test
+            course.course_video = video_upload["url"]
 
         try:
             updated = course.to_dict()
