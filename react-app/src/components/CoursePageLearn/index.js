@@ -41,6 +41,8 @@ function CoursePageLearn() {
                         }>Update Course</button>
                         <p style={{height: "10px", margin: "0"}}></p>
                         <OpenModalButton className="red-button page-cart" buttonText="Delete This Course" modalComponent={<DeleteModal type="course" id={courseId} from="page" />} />
+                        <p style={{height: "10px", margin: "0"}}></p>
+                        <button className="black-button page-cart" onClick={() => history.push(`/courses/course/${course.id}`)}>See course in store</button>
                     </div>
                 </div>
 

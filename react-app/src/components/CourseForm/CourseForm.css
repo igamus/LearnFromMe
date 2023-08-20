@@ -56,12 +56,13 @@
 }
 
 input::file-selector-button {
-    color: #3d3c3c;
-    background-color: #eceb98;
+    color: white;
+    background-color: #3d3c3c;
     border: 1px solid #3d3c3c;
-    border-radius: 20px;
+    padding: 5px 10px;
 }
+
 input::file-selector-button:hover {
     cursor: pointer;
-    background-color: #e4e8eb8a;
+    background-color: #0000008a;
 }
