@@ -83,11 +83,12 @@ function CourseForm({ type, starterForm }) {
         if (type === "update") {
             try {
                 const e = await dispatch(updateCourseThunk(formData, starterForm.id));
+                console.log("e in update try:", e)
                 history.push(`/learn/${starterForm.id}`)
             } catch (errors) {
                 setSubmissionLoading(false);
                 console.log("Errors updating:", errors);
-                setErrors(errors);
+                setErrors([errors.error]);
             }
         }
     };
@@ -95,7 +96,7 @@ function CourseForm({ type, starterForm }) {
     useEffect(() => {
         setDisable(true);
 
-        if (name.length && courseImage && price.length && whatYoullLearn1.length && courseVideo) setDisable(false);
+        if (name.length && courseImage && whatYoullLearn1.length && courseVideo && price) setDisable(false);
     }, [name, courseImage, price, whatYoullLearn1, courseVideo]);
 
     return (
@@ -220,7 +221,7 @@ function CourseForm({ type, starterForm }) {
                     />
                 </div>
 
-                <button className="purple-button" style={{height: "60px", width: "400px"}} type="submit" disabled={submissionLoading || disable}>{submissionLoading ? <><i class="fas fa-spinner" /> Loading...</> : "Submit"}</button>
+                <button className="purple-button" style={{height: "60px", width: "400px"}} type="submit" disabled={submissionLoading || disable}>{submissionLoading ? <><i class="fas fa-spinner" /> Loading...</> : type === "create" ? "Submit" : "Update"}</button>
                 <div className="error-field">
                     {errors ?
                         errors.map((error, idx) => <p key={idx} className="error">{error}</p>)
