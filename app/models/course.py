@@ -57,5 +57,6 @@ class Course(db.Model):
             # "instructorId": self.instructor_id,
             "instructor": self.user.to_dict(),
             "level": self.level,
-            "whatYoullLearn": self.what_youll_learn
+            "whatYoullLearn": self.what_youll_learn,
+            "categories": [category.to_dict() for category in self.categories_for_course if self.categories_for_course]
         }

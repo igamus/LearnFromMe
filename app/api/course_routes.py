@@ -30,9 +30,18 @@ def get_purchased_courses():
     return jsonify(purchased_courses), 200
 
 
+@course_routes.route("/course/<int:course_id>/categorize", methods=["POST"])
+@login_required
+def update_course_categories(couse_id): # need to make a form? can you send an array or bool series? Should you send a bunch of network reqs? 
+    """
+    Accepts an array of category ids and relates (or destroys the relationship between) the course with the categories
+    """
+    pass
+
+
 @course_routes.route("/course/<int:course_id>", methods=["PUT"])
 @login_required
-def update_course(course_id): # need to update the edit of this
+def update_course(course_id):
     """
     Updates the course of the specified id
     """
@@ -120,17 +129,6 @@ def get_all_courses_organized():
     return organized_courses
 
 
-
-@course_routes.route("/<int:category_id>")
-def get_all_courses_of_category(category_id):
-    """
-    Returns a list of all courses in a given category
-    """
-    category = Category.query.get(category_id)
-    courses = [course.to_dict() for course in category.courses_of_category]
-    return jsonify(courses), 200
-
-
 @course_routes.route("/", methods=["POST"])
 @login_required
 def create_course():
@@ -182,7 +180,7 @@ def create_course():
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
 
-@course_routes.route("/") # won't need this
+@course_routes.route("/")
 def get_all_courses():
     """
     Returns a list of all courses
