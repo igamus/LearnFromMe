@@ -220,7 +220,7 @@ function CourseForm({ type, starterForm }) {
                     />
                 </div>
 
-                <button className="purple-button" style={{height: "60px", width: "400px"}} type="submit" disabled={submissionLoading || disable}>{submissionLoading ? "Sending..." : "Submit"}</button>
+                <button className="purple-button" style={{height: "60px", width: "400px"}} type="submit" disabled={submissionLoading || disable}>{submissionLoading ? <><i class="fas fa-spinner" /> Loading...</> : "Submit"}</button>
                 <div className="error-field">
                     {errors ?
                         errors.map((error, idx) => <p key={idx} className="error">{error}</p>)
