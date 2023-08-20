@@ -43,7 +43,7 @@ function Cart() {
                     <div className="cart-sidebar">
                         <h3 style={{color: "#6a6f73"}}>Subtotal:</h3>
                         <div style={{margin: "0", marginBottom: "10px", fontWeight: "bold", fontSize: "2rem"}}>${cart.reduce((a,c) => a + c.price, 0)}</div>
-                        <button className="purple-button" onClick={(e) => {
+                        <button className="purple-button" style={{marginBottom: "0"}} onClick={(e) => {
                             e.preventDefault();
                             dispatch(clearCartThunk());
                             alert('Courses "purchased" (feature to be added soon). Thank you for using LearnFromMe!')
