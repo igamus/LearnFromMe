@@ -25,8 +25,6 @@ function CoursePage() {
     const coursesInCart = useSelector(state => Object.keys(state.cart).map(key => parseInt(key)));
     const user = useSelector(state => state.session.user);
 
-    console.log("course:", course)
-
     return courseLoaded && (
         <div className="course-page">
 

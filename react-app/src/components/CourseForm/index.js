@@ -6,7 +6,6 @@ import decimalCount from "../../utils/decimalCount";
 import "./CourseForm.css";
 
 function CourseForm({ type, starterForm }) {
-    console.log("type:", type)
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -42,22 +41,11 @@ function CourseForm({ type, starterForm }) {
         if (decimalCount(price) > 2) newErrors.push("Price: Prices must be rounded to the nearest cent")
         if (price <= 0) newErrors.push("Price: Prices must be greater than 0")
 
-        console.log("newErrors:", newErrors)
         if (newErrors.length) {
             setSubmissionLoading(false);
             setErrors(newErrors);
             return;
         }
-
-        console.log({
-            name,
-            courseImage,
-            description,
-            price,
-            level,
-            course_video: courseVideo,
-            whatYoullLearn: whatYoullLearn
-        });
 
         const formData = new FormData();
         formData.append("name", name);
@@ -72,22 +60,18 @@ function CourseForm({ type, starterForm }) {
         if (type === "create") {
             try {
                 const newCourse = await dispatch(createCourseThunk(formData));
-                console.log("newCourse:", newCourse);
                 history.push(`/learn/${newCourse.id}`);
             } catch(errors) {
                 setSubmissionLoading(false);
-                console.log("Errors creating:", errors);
                 setErrors(errors.errors);
             }
         }
         if (type === "update") {
             try {
                 const e = await dispatch(updateCourseThunk(formData, starterForm.id));
-                console.log("e in update try:", e)
                 history.push(`/learn/${starterForm.id}`)
             } catch (errors) {
                 setSubmissionLoading(false);
-                console.log("Errors updating:", errors);
                 setErrors([errors.error]);
             }
         }

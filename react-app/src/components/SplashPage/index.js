@@ -15,8 +15,12 @@ function SplashPage() {
             <div className="tech-stack">
                 <span>Made with:</span>
                 <div className="technologies">
+                    <i className="fab fa-html5" />
+                    <i className="fab fa-css3-alt" />
                     <i className="fab fa-js-square" />
                     <i className="fab fa-react" />
+                    <img width="50" height="50" src="https://img.icons8.com/ios/50/6a6f73/redux.png" alt="redux"/>
+                    {/* https://icons8.com/ */}
                     <i className="fab fa-python" />
                     <img src="https://img.icons8.com/fluency/96/6a6f73/flask.png" alt="flask" />
                     {/* https://icons8.com/ */}
@@ -26,6 +30,7 @@ function SplashPage() {
             <div className="more-splash">
                 <h1 className="header">Welcome to LearnFromMe!</h1>
                 <p>At LearnFromMe, we understand the importance of education and the unique opportunities that technology provides to connect everybody with masterful educators.</p>
+                <p>LearnFromMe is an eCommerce education site where users can purchase or host courses.</p>
 
             </div>
         </div>

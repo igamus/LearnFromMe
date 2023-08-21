@@ -16,7 +16,6 @@ function DeleteModal({ type, id, from }) {
             closeModal();
             if (from === "page") history.push("/browse");
         } catch (errors) {
-            console.log("Error deleting course:", errors);
             closeModal();
         }
     }
