@@ -30,7 +30,7 @@ function SplashPage() {
             <div className="more-splash">
                 <h1 className="header">Welcome to LearnFromMe!</h1>
                 <p>At LearnFromMe, we understand the importance of education and the unique opportunities that technology provides to connect everybody with masterful educators.</p>
-                <p>LearnFromMe is an eCommerce education site where users can purchase or host courses.</p>
+                <p>LearnFromMe is an eCommerce education site where users can purchase or host courses. Log in to get started!</p>
 
             </div>
         </div>

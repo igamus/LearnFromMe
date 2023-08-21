@@ -14,7 +14,7 @@ function DeleteModal({ type, id, from }) {
         try {
             dispatch(deleteCourseThunk(id));
             closeModal();
-            if (from === "page") history.push("/browse");
+            if (from === "page") history.push("/teach");
         } catch (errors) {
             closeModal();
         }
