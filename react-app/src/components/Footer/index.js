@@ -37,6 +37,9 @@ function Footer() {
                     alt="The words 'learn from me' in PascalCase' with three purple computers connecting in a network in the 'o' of 'from'"
                     onClick={() => history.push("/")}
                 />
+                <div className='copyright'>
+                    Check out the <a style={{color: "#cec0fc", textDecoration: "none"}} className='clickable' href="https://github.com/igamus/learnfromme/">code</a>
+                </div>
             </div>
         </div>
     );

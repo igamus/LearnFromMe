@@ -60,8 +60,16 @@
 .footer-section-3 {
     /* height: 300px; */
     height: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .footer-logo {
+    padding: 12px 48px;
+}
+
+.copyright {
+    color: white;
     padding: 12px 48px;
 }
