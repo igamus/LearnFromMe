@@ -44,7 +44,7 @@ def seed_courses():
             "users_with_course_in_cart": [demo]
         },
         {
-            "name": "Video Editing Pro Series-- Color Correction",
+            "name": "Video Editing Pro Series -- Color Correction",
             "description": "Continue to master vital skills to make your videos pop. Dominate the digital landscape with high-quality, stunning media",
             "course_image": "https://s3.us-east-2.amazonaws.com/lfm.photo/3382fff5103840f082243bede6faf418.jpg",
             "price": 22.99,

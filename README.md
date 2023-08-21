@@ -1,9 +1,12 @@
-# Flask React Project
+# LearnFromMe
 
-This is the starter for the Flask React project.
+[LearnFromMe](https://learnfromme.onrender.com) is an eCommerce application modeled upon Udemy made with **React** and **Flask** where users can purchases and publish courses.
+
 
 ## Getting started
-1. Clone this repository (only this branch)
+Visit the [live site](https://learnfromme.onrender.com) or
+
+1. Clone this repository
 
 2. Install dependencies
 
@@ -11,17 +14,11 @@ This is the starter for the Flask React project.
       pipenv install -r requirements.txt
       ```
 
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
+3. Create a **.env** file based on the example with proper settings for your development environment
 
 4. Make sure the SQLite3 database connection URL is in the **.env** file
 
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention**.
-
-6. Get into your pipenv, migrate your database, seed your database, and run your Flask app
+5. Get into your pipenv, migrate your database, seed your database, and run your Flask app
 
    ```bash
    pipenv shell
@@ -39,110 +36,67 @@ This is the starter for the Flask React project.
    flask run
    ```
 
-7. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+6. Open another terminal, navigate to the `react-app` directory, and install its dependencies
+
+   ```bash
+   cd react-app
+   ```
+
+   ```bash
+   npm i
+   ```
+
+7. Then, run the frontend
+
+   ```bash
+   npm start
+   ```
 
 
-## Deployment through Render.com
+## Features
 
-First, refer to your Render.com deployment articles for more detailed
-instructions about getting started with [Render.com], creating a production
-database, and deployment debugging tips.
+### Courses
+Users that are not logged in can browse courses for sale.
 
-From the [Dashboard], click on the "New +" button in the navigation bar, and
-click on "Web Service" to create the application that will be deployed.
+![Browse all courses view](/readme-images/image.png)
 
-Look for the name of the application you want to deploy, and click the "Connect"
-button to the right of the name.
+A logged-in user can
+* Upload courses
+* View created courses (including their videos) from a course management page
+* Update existing courses they own
+* Delete existing courses they own
 
-Now, fill out the form to configure the build and start commands, as well as add
-the environment variables to properly deploy the application.
+### Cart
 
-### Part A: Configure the Start and Build Commands
+![Cart view](/readme-images/image-1.png)
 
-Start by giving your application a name.
+A logged in user can
+* Add courses to a shopping cart
+* Remove courses from their cart
+* "Purchase" items (clear the cart)
 
-Leave the root directory field blank. By default, Render will run commands from
-the root directory.
+### Upcoming Features
+* Course categories
+  * Add, remove, and update categories relevant to a course
+  * Organize courses into categories for browsing
+* Purchase courses
+  * Users can view courses they have purchased
+* Expanded user profiles
+  * Users can update their profile information
+  * Users can also add
+     * a profile image
+     * a bio
+     * areas of expertise
+* Review courses
+  * All courses have a rating, averaged from individual user reviews that are, in turn, readable
+  * Users can review courses they have purchased
+  * Users can update and delete reviews they have written
 
-Make sure the Environment field is set set to "Python 3", the Region is set to
-the location closest to you, and the Branch is set to "main".
 
-Next, add your Build command. This is a script that should include everything
-that needs to happen _before_ starting the server.
+## Endpoints
 
-For your Flask project, enter the following command into the Build field, all in
-one line:
+Coming soon!
 
-```shell
-# build command - enter all in one line
-npm install --prefix react-app &&
-npm run build --prefix react-app &&
-pip install -r requirements.txt &&
-pip install psycopg2 &&
-flask db upgrade &&
-flask seed all
-```
 
-This script will install dependencies for the frontend, and run the build
-command in the __package.json__ file for the frontend, which builds the React
-application. Then, it will install the dependencies needed for the Python
-backend, and run the migration and seed files.
-
-Now, add your start command in the Start field:
-
-```shell
-# start script
-gunicorn app:app
-```
-
-_If you are using websockets, use the following start command instead for increased performance:_
-
-`gunicorn --worker-class eventlet -w 1 app:app`
-
-### Part B: Add the Environment Variables
-
-Click on the "Advanced" button at the bottom of the form to configure the
-environment variables your application needs to access to run properly. In the
-development environment, you have been securing these variables in the __.env__
-file, which has been removed from source control. In this step, you will need to
-input the keys and values for the environment variables you need for production
-into the Render GUI.
-
-Click on "Add Environment Variable" to start adding all of the variables you
-need for the production environment.
-
-Add the following keys and values in the Render GUI form:
-
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
-- REACT_APP_BASE_URL (use render.com url, located at top of page, similar to
-  https://this-application-name.onrender.com)
-
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
-
-Add the following keys and values:
-
-- DATABASE_URL (copy value from Internal Database URL field)
-
-_Note: Add any other keys and values that may be present in your local __.env__
-file. As you work to further develop your project, you may need to add more
-environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment._
-
-Next, choose "Yes" for the Auto-Deploy field. This will re-deploy your
-application every time you push to main.
-
-Now, you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your build and
-start commands being executed, and see any errors in the build process.
-
-When deployment is complete, open your deployed site and check to see if you
-successfully deployed your Flask application to Render! You can find the URL for
-your site just below the name of the Web Service at the top of the page.
-
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/
+## Contact the Developer
+All questions and concerns can be addressed to myself, Isaac Gamus, at igamus@gmail.com.
