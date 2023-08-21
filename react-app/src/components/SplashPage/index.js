@@ -1,6 +1,8 @@
+import { useHistory } from "react-router-dom";
 import "./SplashPage.css";
 
 function SplashPage() {
+    const history = useHistory();
     return (
         <div className="splash-page">
             <div className="image-box">
@@ -31,7 +33,15 @@ function SplashPage() {
                 <h1 className="header">Welcome to LearnFromMe!</h1>
                 <p>At LearnFromMe, we understand the importance of education and the unique opportunities that technology provides to connect everybody with masterful educators.</p>
                 <p>LearnFromMe is an eCommerce education site where users can purchase or host courses. Log in to get started!</p>
+            </div>
 
+            <div className="image-box">
+                <img className="splash-image" src="https://s.udemycdn.com/home/non-student-cta/instructor-1x-v3.jpg" alt="A man explaining" />
+                <div className="instruction-side">
+                    <div className="header instruction-side-header">Become an instructor</div>
+                    <p style={{lineHeight: "1.75"}}>Instructors from around the world teach millions of students on Udemy. We provide the tools and skills to teach what you love.</p>
+                    <button className="black-button home-instruct-button" onClick={() => history.push("/teach") }>Start teaching today</button>
+                </div>
             </div>
         </div>
     );

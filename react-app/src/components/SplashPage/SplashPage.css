@@ -52,3 +52,26 @@
 .more-splash {
     width: 80vw;
 }
+
+.image-box {
+    gap: 75px;
+}
+
+.instruction-side {
+    height: 450px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 24px;
+}
+
+.instruction-side-header {
+    font-size: 2rem;
+}
+
+.home-instruct-button {
+    height: 50px;
+    width: 175px;
+    font-weight: bolder;
+}
