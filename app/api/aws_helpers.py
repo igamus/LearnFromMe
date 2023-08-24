@@ -19,7 +19,7 @@ def get_unique_filename(filename):
 
 ALLOWED_EXTENSIONS_PHOTO = {"pdf", "png", "jpg", "jpeg", "gif"} # maybe also {"apng", "avif", "jfif", "pjpeg", "pjp", "svg", "webp"}
 BUCKET_NAME_PHOTO = os.environ.get("S3_BUCKET_COURSE_PHOTOS")
-REGION = os.envrion.get("S3_REGION")
+REGION = os.environ.get("S3_REGION")
 S3_LOCATION_PHOTO = f"https://s3.{REGION}.amazonaws.com/{BUCKET_NAME_PHOTO}/"
 
 def upload_photo_file_to_s3(file, acl="public-read"):
@@ -53,7 +53,7 @@ def remove_image_file_from_s3(image_url):
 
 ALLOWED_EXTENSIONS_VIDEO = {"mp4", "avi", "ogv", "webm"} # maybe also {"ogm", "ogg"}
 BUCKET_NAME_VIDEO = os.environ.get("S3_BUCKET_COURSE_VIDEOS")
-REGION = os.envrion.get("S3_REGION")
+REGION = os.environ.get("S3_REGION")
 S3_LOCATION_VIDEO = f"https://s3.{REGION}.amazonaws.com/{BUCKET_NAME_VIDEO}/"
 
 def upload_video_file_to_s3(file, acl="public-read"):
