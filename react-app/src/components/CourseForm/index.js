@@ -6,7 +6,6 @@ import decimalCount from "../../utils/decimalCount";
 import "./CourseForm.css";
 
 function CourseForm({ type, starterForm }) {
-    console.log("type:", type)
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -42,22 +41,11 @@ function CourseForm({ type, starterForm }) {
         if (decimalCount(price) > 2) newErrors.push("Price: Prices must be rounded to the nearest cent")
         if (price <= 0) newErrors.push("Price: Prices must be greater than 0")
 
-        console.log("newErrors:", newErrors)
         if (newErrors.length) {
             setSubmissionLoading(false);
             setErrors(newErrors);
             return;
         }
-
-        console.log({
-            name,
-            courseImage,
-            description,
-            price,
-            level,
-            course_video: courseVideo,
-            whatYoullLearn: whatYoullLearn
-        });
 
         const formData = new FormData();
         formData.append("name", name);
@@ -72,11 +60,9 @@ function CourseForm({ type, starterForm }) {
         if (type === "create") {
             try {
                 const newCourse = await dispatch(createCourseThunk(formData));
-                console.log("newCourse:", newCourse);
                 history.push(`/learn/${newCourse.id}`);
             } catch(errors) {
                 setSubmissionLoading(false);
-                console.log("Errors creating:", errors);
                 setErrors(errors.errors);
             }
         }
@@ -86,8 +72,7 @@ function CourseForm({ type, starterForm }) {
                 history.push(`/learn/${starterForm.id}`)
             } catch (errors) {
                 setSubmissionLoading(false);
-                console.log("Errors updating:", errors);
-                setErrors(errors);
+                setErrors([errors.error]);
             }
         }
     };
@@ -95,7 +80,7 @@ function CourseForm({ type, starterForm }) {
     useEffect(() => {
         setDisable(true);
 
-        if (name.length && courseImage && price.length && whatYoullLearn1.length && courseVideo) setDisable(false);
+        if (name.length && courseImage && whatYoullLearn1.length && courseVideo && price) setDisable(false);
     }, [name, courseImage, price, whatYoullLearn1, courseVideo]);
 
     return (
@@ -220,7 +205,7 @@ function CourseForm({ type, starterForm }) {
                     />
                 </div>
 
-                <button className="purple-button" style={{height: "60px", width: "400px"}} type="submit" disabled={submissionLoading || disable}>{submissionLoading ? "Sending..." : "Submit"}</button>
+                <button className="purple-button" style={{height: "60px", width: "400px"}} type="submit" disabled={submissionLoading || disable}>{submissionLoading ? <><i class="fas fa-spinner" /> Loading...</> : type === "create" ? "Submit" : "Update"}</button>
                 <div className="error-field">
                     {errors ?
                         errors.map((error, idx) => <p key={idx} className="error">{error}</p>)

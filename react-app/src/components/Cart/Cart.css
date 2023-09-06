@@ -1,0 +1,77 @@
+.cart-page {
+    padding: 32px 100px;
+}
+
+.course-count {
+    margin-bottom: 0;
+}
+
+.cart-line {
+    margin-bottom: 10px;
+    height: 1px;
+    color: #d1d7dc;
+}
+
+.cart-page-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.course-in-cart {
+    display: flex;
+    justify-content: space-between;
+}
+
+.manage-course-in-cart {
+    display: flex;
+    gap: 30px;
+    padding: 0 32px;
+    width: 221px;
+    flex-shrink: 0;
+}
+
+.cart-purple {
+    color: #5663de;
+}
+
+.cart-purple:hover {
+    cursor: pointer;
+    color: #a4a9d5;
+}
+
+.cart-price {
+    color: #a435f0;
+}
+
+.empty-cart {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3rem;
+    box-shadow: 0 0 2px #d1d7dc;
+    padding: 2.4rem;
+    text-align: center;
+}
+
+.empty-cart * {
+    padding-bottom: 24px;
+}
+
+.cart-sidebar {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+    flex-shrink: 0;
+}
+
+.cart-line-course{
+    margin: 30px 0;
+    height: 1px;
+    color: #d1d7dc;
+}
+
+.cart-container {
+    flex-grow: 1;
+}

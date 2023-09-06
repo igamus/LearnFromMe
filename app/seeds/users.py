@@ -13,8 +13,8 @@ marnie = User(
     password='password'
 )
 bobbie = User(
-    name='Robert Lee',
-    email='bobbie@aa.io',
+    name='Dr. Bobbie Vaile',
+    email='robertavaile@westernsydney.edu.au',
     password='password'
 )
 buying_andy = User(

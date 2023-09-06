@@ -16,6 +16,7 @@ import UpdateCourse from "./components/UpdateCourse";
 import Cart from "./components/Cart";
 import ManageCourses from "./components/ManageCourses";
 import CoursePageLearn from "./components/CoursePageLearn";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -65,6 +66,7 @@ function App() {
           <CustomError />
         </Switch>
       )}
+      <Footer />
     </>
   );
 }
