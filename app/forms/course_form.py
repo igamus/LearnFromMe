@@ -1,8 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, DecimalField, SubmitField
+from wtforms import StringField, DecimalField, SelectMultipleField, SubmitField
 from wtforms.validators import DataRequired, Length, NumberRange
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 from ..api.aws_helpers import ALLOWED_EXTENSIONS_PHOTO, ALLOWED_EXTENSIONS_VIDEO
+
 
 class CourseForm(FlaskForm):
     name = StringField('Course Name', validators=[DataRequired(message="Name your course!"), Length(min=5, max=255, message="Course name must be between %(min)d and %(max)d characters")])
@@ -12,4 +13,5 @@ class CourseForm(FlaskForm):
     level = StringField("Familiarity Level", validators=[DataRequired(message="Must describe proficiency level")])
     what_youll_learn = StringField("what You'll Learn", validators=[DataRequired(message="Must describe course contract")])
     course_video = FileField("Course Video", validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS_VIDEO))])
+    categories = SelectMultipleField("Categories", coerce=int, validate_choice=False) # skip validation, populate choices in the front-end, and submit in desired format
     submit = SubmitField("Submit")

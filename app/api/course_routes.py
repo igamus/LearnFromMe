@@ -30,15 +30,6 @@ def get_purchased_courses():
     return jsonify(purchased_courses), 200
 
 
-@course_routes.route("/course/<int:course_id>/categorize", methods=["POST"])
-@login_required
-def update_course_categories(couse_id): # need to make a form? can you send an array or bool series? Should you send a bunch of network reqs? 
-    """
-    Accepts an array of category ids and relates (or destroys the relationship between) the course with the categories
-    """
-    pass
-
-
 @course_routes.route("/course/<int:course_id>", methods=["PUT"])
 @login_required
 def update_course(course_id):
@@ -79,6 +70,8 @@ def update_course(course_id):
                 # if the dictionary has no url key, there was an error
                 return {"errors": validation_errors_to_error_messages(video_upload)} # need to test
             course.course_video = video_upload["url"]
+
+        course.categories = form.data["categories"]
 
         try:
             updated = course.to_dict()
@@ -185,7 +178,8 @@ def create_course():
             instructor_id=current_user_id,
             level=form.data["level"],
             what_youll_learn=form.data["what_youll_learn"],
-            course_video=course_video_url
+            course_video=course_video_url,
+            categories=form.data["categories"]
         )
 
         db.session.add(course)
