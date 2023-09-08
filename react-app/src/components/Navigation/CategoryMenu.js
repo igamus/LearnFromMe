@@ -50,7 +50,7 @@ function CategoryMenu() { // categories ?
             <div className={courseClassName} onMouseEnter={openMenu}>Courses</div>
 
             <div className={ulClassName} ref={ulRef} onMouseLeave={closeMenu}>
-                <div className="invisible" />
+                <div className="invisible-cat" />
                 <div className="actual-category-dropdown">
                     {categories.map(category => (
                         <>

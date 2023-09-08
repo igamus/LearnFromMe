@@ -22,10 +22,19 @@
   /* position: absolute; */
   width: fit-content;
   right: 80px;
-  top: 10.25vh;
+  top: 2.75vh;
+}
+
+.actual-profile-dropdown {
   background-color: white;
   border: 1px solid gainsboro;
   box-shadow: 0 2px 4px rgba(0,0,0,.08);
+}
+
+.invisible-prof {
+  all: unset;
+  background-color: none;
+  height: 7.5vh;
 }
 
 .hidden {

@@ -16,7 +16,7 @@
     box-shadow: 0 2px 4px rgba(0,0,0,.08);
 }
 
-.invisible {
+.invisible-cat {
     all: unset;
     background-color: none;
     height: 6vh;

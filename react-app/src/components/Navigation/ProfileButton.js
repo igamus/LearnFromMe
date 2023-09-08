@@ -42,21 +42,25 @@ function ProfileButton({ user }) {
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
   const closeMenu = () => setShowMenu(false);
+  const profileButtonClassName = "profile-button" + (showMenu ? " profile-hover" : " black-button")
 
   return (
     <>
         {user ? (
         <div>
-          <button className="black-button profile-button" onClick={openMenu}>
+          <button className={profileButtonClassName} onMouseEnter={openMenu}>
             {initials(user.name)}
           </button>
 
-          <div className={ulClassName} ref={ulRef}>
-              <p className="dropdown">{user.name}</p>
-              <hr className="line" />
-              <p className="dropdown">{user.email}</p>
-              <hr className="line" />
-              <p className="dropdown clickable" onClick={handleLogout}>Log Out</p>
+          <div className={ulClassName} ref={ulRef} onMouseLeave={closeMenu}>
+              <div className="invisible-prof" />
+              <div className="actual-profile-dropdown">
+                <p className="dropdown">{user.name}</p>
+                <hr className="line" />
+                <p className="dropdown">{user.email}</p>
+                <hr className="line" />
+                <p className="dropdown clickable" onClick={handleLogout}>Log Out</p>
+              </div>
           </div>
         </div>
         ) : (
