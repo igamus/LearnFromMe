@@ -5,7 +5,7 @@ import { createCourseThunk, updateCourseThunk } from "../../store/courses";
 import decimalCount from "../../utils/decimalCount";
 import "./CourseForm.css";
 
-function CourseForm({ type, starterForm }) {
+function CourseForm({ type, starterForm, categoriesLoaded }) {
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -18,6 +18,9 @@ function CourseForm({ type, starterForm }) {
     const [whatYoullLearn2, setWhatYoullLearn2] = useState(starterForm.whatYoullLearn2);
     const [whatYoullLearn3, setWhatYoullLearn3] = useState(starterForm.whatYoullLearn3);
     const [courseVideo, setCourseVideo] = useState(starterForm.courseVideo);
+    const [categories, setCategories] = useState(starterForm.categories);
+
+    const listOfCategories = Object.keys(categories);
 
     const [errors, setErrors] = useState("");
 
@@ -47,6 +50,9 @@ function CourseForm({ type, starterForm }) {
             return;
         }
 
+        const submissionCategories = Object.keys(categories).filter(category => categories[category]);
+        console.log("submissionCategories:", submissionCategories);
+
         const formData = new FormData();
         formData.append("name", name);
         formData.append("description", description);
@@ -55,6 +61,7 @@ function CourseForm({ type, starterForm }) {
         formData.append("level", level);
         formData.append("what_youll_learn", whatYoullLearn);
         formData.append("course_video", courseVideo);
+        formData.append("categories", submissionCategories);
         setSubmissionLoading(true);
 
         if (type === "create") {
@@ -83,7 +90,7 @@ function CourseForm({ type, starterForm }) {
         if (name.length && courseImage && whatYoullLearn1.length && courseVideo && price) setDisable(false);
     }, [name, courseImage, price, whatYoullLearn1, courseVideo]);
 
-    return (
+    return categoriesLoaded && (
         <div className="course-form-page">
             <div className="course-heading">
                 <h1 style={{marginBottom: "0"}}>{type === "create" ? "Create" : "Update"} your course</h1>
@@ -163,8 +170,9 @@ function CourseForm({ type, starterForm }) {
 
                 <div className="course-div">
                     <div className="wyl-label-container">
-                        <label className="course-label" htmlFor="whatyoulllearn1">What You'll Learn: List up to three takeaways from your course</label>
-                        <div>*Must include at least one takeaway</div>
+                        <label className="course-label" htmlFor="whatyoulllearn1">What You'll Learn</label>
+                        <p className="form-p">List up to three takeaways from your course</p>
+                        <div style={{fontStyle: "italic"}}>*Must include at least one takeaway</div>
                     </div>
                     <div className="wyl-input-container">
                         <input
@@ -203,6 +211,23 @@ function CourseForm({ type, starterForm }) {
                         onChange={e => setCourseVideo(e.target.files[0])}
                         accept="video/*"
                     />
+                </div>
+
+                <div className="categories-container">
+                    <h4 className="category-group-label">Categories</h4>
+                    <p className="form-p">Tag your course to help people find it!</p>
+
+                    {listOfCategories.map(category => (
+                        <div className="category-container" key={category}>
+                            <input className="category-input" id={category} type="checkbox" onClick={(e) => {
+                                const copy = { ...categories };
+                                copy[e.target.id] = !copy[e.target.id]
+                                setCategories(copy);
+                            }} />
+                            <label className="category-label" htmlFor={category}>{category}</label>
+                        </div>
+
+                    ))}
                 </div>
 
                 <button className="purple-button" style={{height: "60px", width: "400px"}} type="submit" disabled={submissionLoading || disable}>{submissionLoading ? <><i class="fas fa-spinner" /> Loading...</> : type === "create" ? "Submit" : "Update"}</button>

@@ -179,7 +179,7 @@ def create_course():
             level=form.data["level"],
             what_youll_learn=form.data["what_youll_learn"],
             course_video=course_video_url,
-            categories=form.data["categories"]
+            # categories=form.data["categories"] this is not how you'll create these -- how do we create these - got to create the relationship and/or join?? -- well, we'll look at cart
         )
 
         db.session.add(course)

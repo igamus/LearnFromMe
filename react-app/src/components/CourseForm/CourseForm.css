@@ -34,6 +34,11 @@
     margin-top: 10px;
 }
 
+.form-p {
+    /* font-style: italic; */
+    margin: 0 0 10px 0;
+}
+
 .course-input {
     height: 60px;
     width: 400px
@@ -65,4 +70,25 @@ input::file-selector-button {
 input::file-selector-button:hover {
     cursor: pointer;
     background-color: #0000008a;
+}
+
+.category-group-label {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.category-container {
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.category-input {
+    margin-right: 1.1rem;
+    cursor: pointer;
+    transform: scale(1.25);
+}
+
+.category-label {
+    font-size: 1.1rem;
 }

@@ -1,6 +1,16 @@
+import { useEffect, useState } from "react";
 import CourseForm from "../CourseForm";
 
 function CreateCourse() {
+    const [categoriesLoaded, setCategoriesLoaded] = useState(false);
+    const categories = {};
+    useEffect(() => {
+        fetch("/api/category/")
+            .then((res) => res.json())
+            .then((data) => data.forEach(category => categories[category.name] = false))
+            .then(() => setCategoriesLoaded(true))
+    }, []);
+
     const starterForm = {
         name: "",
         description: "",
@@ -10,11 +20,12 @@ function CreateCourse() {
         whatYoullLearn1: "",
         whatYoullLearn2: "",
         whatYoullLearn3: "",
-        courseVideo: null
+        courseVideo: null,
+        categories
     };
 
     return (
-        <CourseForm type="create" starterForm={starterForm} />
+        <CourseForm type="create" starterForm={starterForm} categoriesLoaded={categoriesLoaded} />
     );
 };
 
