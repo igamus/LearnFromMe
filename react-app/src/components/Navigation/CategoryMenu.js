@@ -30,10 +30,11 @@ function CategoryMenu() { // categories ?
         if (!showMenu) return;
 
         const closeMenu = (e) => {
-        if(ulRef.current === null) return;
-        if (!ulRef.current.contains(e.target)) {
-            setShowMenu(false);
-        }
+            console.log(e.target.className.includes("clickable"))
+            if(ulRef.current === null) return;
+            if (!ulRef.current.contains(e.target)) {
+                setShowMenu(false);
+            }
         };
 
         document.addEventListener("click", closeMenu);
@@ -46,9 +47,13 @@ function CategoryMenu() { // categories ?
 
     return isLoaded && (
         <div className="container">
-            <div className="navlink clickable" onMouseEnter={openMenu}>Courses</div>
+            <div className="navlink clickable" onMouseOver={openMenu}>Courses</div>
 
             <div className={ulClassName} ref={ulRef} onMouseLeave={closeMenu}>
+                <div className="navlink clickable" onClick={() => {
+                    history.push('/browse');
+                    setShowMenu(false);
+                }}>Courses</div>
                 <div className="invisible" />
                 <div className="actual-category-dropdown">
                     {categories.map(category => (

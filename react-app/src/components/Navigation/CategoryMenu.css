@@ -3,7 +3,7 @@
     flex-direction: column;
     position: absolute;
     width: fit-content;
-    top: 5vh;
+    top: 4vh;
 }
 
 .hidden {
@@ -19,5 +19,5 @@
 .invisible {
     all: unset;
     background-color: none;
-    height: 5.25vh;
+    height: 4.25vh;
 }
