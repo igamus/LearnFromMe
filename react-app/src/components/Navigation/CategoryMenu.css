@@ -1,0 +1,23 @@
+.category-dropdown {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: fit-content;
+    top: 5vh;
+}
+
+.hidden {
+    display: none;
+}
+
+.actual-category-dropdown {
+    background-color: white;
+    border: 1px solid gainsboro;
+    box-shadow: 0 2px 4px rgba(0,0,0,.08);
+}
+
+.invisible {
+    all: unset;
+    background-color: none;
+    height: 5.25vh;
+}

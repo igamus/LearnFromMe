@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
 import { clearCartOnLogoutThunk } from "../../store/cart";
@@ -46,7 +46,7 @@ function ProfileButton({ user }) {
   return (
     <>
         {user ? (
-        <>
+        <div>
           <button className="black-button profile-button" onClick={openMenu}>
             {initials(user.name)}
           </button>
@@ -58,7 +58,7 @@ function ProfileButton({ user }) {
               <hr className="line" />
               <p className="dropdown clickable" onClick={handleLogout}>Log Out</p>
           </div>
-        </>
+        </div>
         ) : (
           <div className="auth-buttons-container">
             <button className="white-button nav-button" onClick={() => {

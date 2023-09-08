@@ -27,7 +27,7 @@ def get_all_courses_in_a_category(category_id):
     Returns a list of all courses for a given category
     """
     category = Category.query.get(category_id)
-    courses = [course.to_dict() for course in category]
+    courses = [course.to_dict() for course in category.courses_of_category]
     return jsonify(courses), 200
 
 

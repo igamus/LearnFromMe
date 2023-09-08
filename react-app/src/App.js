@@ -8,7 +8,6 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import CustomError from "./components/CustomError";
 import CoursePage from "./components/CoursePage";
-// import CategoryCourses from "./components/CategoryCourses";
 import ViewAllCourses from "./components/ViewAllCourses";
 import CreateCourse from "./components/CreateCourse";
 import SplashPage from "./components/SplashPage";
@@ -48,9 +47,9 @@ function App() {
           <Route exact path="/courses/course/:courseId">
             <CoursePage />
           </Route>
-          {/* <Route exact path="/courses/:categoryId">
-            <CategoryCourses />
-          </Route> */}
+          <Route exact path="/category/:categoryId">
+            <ViewAllCourses />
+          </Route>
           <Route exact path="/browse">
             <ViewAllCourses />
           </Route>
