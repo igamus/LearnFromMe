@@ -3,7 +3,7 @@
     flex-direction: column;
     position: absolute;
     width: fit-content;
-    top: 4vh;
+    top: 4.25vh;
 }
 
 .hidden {
@@ -19,5 +19,9 @@
 .invisible {
     all: unset;
     background-color: none;
-    height: 4.25vh;
+    height: 6vh;
+}
+
+.purple-highlight {
+    color: #a435f0;
 }
