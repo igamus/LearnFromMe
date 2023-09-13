@@ -123,6 +123,13 @@ export const readAllCoursesOrganizedThunk = () => async dispatch => {
 };
 
 export const createCourseThunk = formData => async dispatch => {
+    // console.log('formData (I hope):');
+    // for (const pair of formData.entries()) {
+    //     console.log(pair[0]);
+    //     console.log(pair[1]);
+    //     console.log(Array.isArray(pair[1]))
+    //     console.log(typeof pair[1])
+    // }
     const res = await fetch("/api/courses/", {
         method: "POST",
         body: formData

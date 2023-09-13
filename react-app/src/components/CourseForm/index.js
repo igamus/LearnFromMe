@@ -50,8 +50,14 @@ function CourseForm({ type, starterForm, categoriesLoaded }) {
             return;
         }
 
-        const submissionCategories = Object.keys(categories).filter(category => categories[category]);
-        console.log("submissionCategories:", submissionCategories);
+        const categoryIds = Object.values(categories).reduce((submissionArray, category) => {
+            if (category.set) {
+                submissionArray.push(category.id);
+                return submissionArray;
+            } else {
+                return submissionArray;
+            }
+        }, []);
 
         const formData = new FormData();
         formData.append("name", name);
@@ -61,7 +67,7 @@ function CourseForm({ type, starterForm, categoriesLoaded }) {
         formData.append("level", level);
         formData.append("what_youll_learn", whatYoullLearn);
         formData.append("course_video", courseVideo);
-        formData.append("categories", submissionCategories);
+        formData.append("categories", categoryIds);
         setSubmissionLoading(true);
 
         if (type === "create") {
@@ -70,7 +76,7 @@ function CourseForm({ type, starterForm, categoriesLoaded }) {
                 history.push(`/learn/${newCourse.id}`);
             } catch(errors) {
                 setSubmissionLoading(false);
-                setErrors(errors.errors);
+                setErrors(errors.errors || ["An unexpected error occurred.", "If the error continues, please contact the developer."]);
             }
         }
         if (type === "update") {
@@ -79,7 +85,7 @@ function CourseForm({ type, starterForm, categoriesLoaded }) {
                 history.push(`/learn/${starterForm.id}`)
             } catch (errors) {
                 setSubmissionLoading(false);
-                setErrors([errors.error]);
+                setErrors([errors.error] || ["An unexpected error occurred.",  "If the error continues, please contact the developer."]);
             }
         }
     };
@@ -221,7 +227,8 @@ function CourseForm({ type, starterForm, categoriesLoaded }) {
                         <div className="category-container" key={category}>
                             <input className="category-input" id={category} type="checkbox" onClick={(e) => {
                                 const copy = { ...categories };
-                                copy[e.target.id] = !copy[e.target.id]
+                                copy[e.target.id].set = !copy[e.target.id].set
+                                console.log('copy:',copy)
                                 setCategories(copy);
                             }} />
                             <label className="category-label" htmlFor={category}>{category}</label>

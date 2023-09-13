@@ -7,7 +7,13 @@ function CreateCourse() {
     useEffect(() => {
         fetch("/api/category/")
             .then((res) => res.json())
-            .then((data) => data.forEach(category => categories[category.name] = false))
+            .then((data) => data.forEach(category => {
+                categories[category.name] = {
+                    name: category.name,
+                    id: category.id,
+                    set: false
+                }
+            }))
             .then(() => setCategoriesLoaded(true))
     }, []);
 

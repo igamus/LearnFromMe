@@ -179,11 +179,24 @@ def create_course():
             level=form.data["level"],
             what_youll_learn=form.data["what_youll_learn"],
             course_video=course_video_url,
-            # categories=form.data["categories"] this is not how you'll create these -- how do we create these - got to create the relationship and/or join?? -- well, we'll look at cart
         )
 
-        db.session.add(course)
-        db.session.commit()
+        category_ids = [int(id) for id in form.data["categories"].split(",")]
+        print("-----------------------------category_ids----------------------")
+        print(category_ids)
+        if category_ids is None:
+            course.categories_for_course = []
+
+        try:
+            for category_id in category_ids:
+                category = Category.query.get(category_id)
+                course.categories_for_course.append(category)
+
+            db.session.add(course)
+            db.session.commit()
+        except Exception as error:
+            db.session.rollback()
+            return jsonify({"error":"An error occurred while updating the server"}), 500
         return course.to_dict()
     return {"errors": validation_errors_to_error_messages(form.errors)}, 400
 
