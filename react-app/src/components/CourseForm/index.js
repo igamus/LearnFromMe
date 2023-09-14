@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createCourseThunk, updateCourseThunk } from "../../store/courses";
+
 import decimalCount from "../../utils/decimalCount";
 import "./CourseForm.css";
 
@@ -20,7 +21,7 @@ function CourseForm({ type, starterForm, categoriesLoaded }) {
     const [courseVideo, setCourseVideo] = useState(starterForm.courseVideo);
     const [categories, setCategories] = useState(starterForm.categories);
 
-    const listOfCategories = Object.keys(categories);
+    const listOfCategories = categories ? Object.keys(categories) : [];
 
     const [errors, setErrors] = useState("");
 
@@ -93,7 +94,7 @@ function CourseForm({ type, starterForm, categoriesLoaded }) {
     useEffect(() => {
         setDisable(true);
 
-        if (name.length && courseImage && whatYoullLearn1.length && courseVideo && price) setDisable(false);
+        if (name?.length && courseImage && whatYoullLearn1?.length && courseVideo && price) setDisable(false);
     }, [name, courseImage, price, whatYoullLearn1, courseVideo]);
 
     return categoriesLoaded && (
@@ -225,15 +226,13 @@ function CourseForm({ type, starterForm, categoriesLoaded }) {
 
                     {listOfCategories.map(category => (
                         <div className="category-container" key={category}>
-                            <input className="category-input" id={category} type="checkbox" onClick={(e) => {
+                            <input className="category-input" id={category} checked={categories[category].set} type="checkbox" onClick={(e) => {
                                 const copy = { ...categories };
                                 copy[e.target.id].set = !copy[e.target.id].set
-                                console.log('copy:',copy)
                                 setCategories(copy);
                             }} />
                             <label className="category-label" htmlFor={category}>{category}</label>
                         </div>
-
                     ))}
                 </div>
 

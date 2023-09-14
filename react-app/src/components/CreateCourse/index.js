@@ -1,21 +1,24 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getCategoriesThunk } from "../../store/categories";
 import CourseForm from "../CourseForm";
 
 function CreateCourse() {
+    const dispatch = useDispatch();
     const [categoriesLoaded, setCategoriesLoaded] = useState(false);
-    const categories = {};
+
     useEffect(() => {
-        fetch("/api/category/")
-            .then((res) => res.json())
-            .then((data) => data.forEach(category => {
-                categories[category.name] = {
-                    name: category.name,
-                    id: category.id,
-                    set: false
-                }
-            }))
-            .then(() => setCategoriesLoaded(true))
-    }, []);
+        dispatch(getCategoriesThunk()).then(() => setCategoriesLoaded(true));
+    }, [dispatch]);
+
+    const categoriesWithSets = {};
+    const categories = useSelector(state => Object.values(state.categories).forEach(category => {
+        categoriesWithSets[category.name] = {
+            name: category.name,
+            id: category.id,
+            set: false
+        }
+    }));
 
     const starterForm = {
         name: "",
@@ -27,7 +30,7 @@ function CreateCourse() {
         whatYoullLearn2: "",
         whatYoullLearn3: "",
         courseVideo: null,
-        categories
+        categories: categoriesWithSets
     };
 
     return (

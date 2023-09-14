@@ -13,5 +13,5 @@ class UpdateCourseForm(FlaskForm):
     level = StringField("Familiarity Level", validators=[DataRequired(message="Must describe proficiency level")])
     what_youll_learn = StringField("what You'll Learn", validators=[DataRequired(message="Must describe course contract")])
     course_video = FileField("Course Video", validators=[FileAllowed(list(ALLOWED_EXTENSIONS_VIDEO))])
-    categories = SelectMultipleField("Categories", coerce=int, validate_choice=False) # skip validation, populate choices in the front-end, and submit in desired format
+    categories = StringField("Categories") # skip validation, populate choices in the front-end, and submit in desired format
     submit = SubmitField("Submit")

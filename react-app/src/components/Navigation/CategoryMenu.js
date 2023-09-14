@@ -2,7 +2,8 @@ import { useHistory } from "react-router-dom";
 import "./CategoryMenu.css";
 import "./ProfileButton.css";
 import { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getCategoriesThunk } from "../../store/categories";
 
 function CategoryMenu() { // categories ?
     const dispatch = useDispatch();
@@ -10,7 +11,6 @@ function CategoryMenu() { // categories ?
     const [showMenu, setShowMenu] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
     const ulRef = useRef();
-    const [categories, setCategories] = useState([]);
 
     const openMenu = () => {
         if (showMenu) return;
@@ -18,13 +18,10 @@ function CategoryMenu() { // categories ?
     };
 
     useEffect(() => {
-        fetch("/api/category/")
-            .then((res) => res.json())
-            .then((data) => {
-                setCategories(data);
-                setIsLoaded(true)
-            });
+        dispatch(getCategoriesThunk()).then(() => setIsLoaded(true))
     }, [dispatch]);
+
+    const categories = useSelector(state => Object.values(state.categories));
 
     useEffect(() => {
         if (!showMenu) return;
