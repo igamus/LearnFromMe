@@ -232,7 +232,9 @@ function courseReducer(state = initialState, action) { // need to streamline; th
             }
             newState.singleCourse = { ...action.course };
             newState.taughtCourses[action.course.id] = action.course;
+            // did you implement the categories?
             // implement in course categories? newState.categoryCourses[action.course.category]
+            // this is at least true because you're never hanging around on the page -- should clean up your stores...
             // implement in allCourses? allCourses all -- the not organized one...
             return newState;
         }
@@ -247,7 +249,8 @@ function courseReducer(state = initialState, action) { // need to streamline; th
             newState.singleCourse = { ...action.updatedCourse };
             newState.categoryCourses[action.updatedCourse.id] = { ...action.updatedCourse };
             newState.allCourses[action.updatedCourse.id] = { ...action.updatedCourse };
-
+            // implement categories?
+            // this is at least true because you're never hanging around on the page -- should clean up your stores...
             return newState;
         }
         case DELETE_COURSE: {

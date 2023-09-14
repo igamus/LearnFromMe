@@ -71,7 +71,12 @@ def update_course(course_id):
                 return {"errors": validation_errors_to_error_messages(video_upload)} # need to test
             course.course_video = video_upload["url"]
 
-        course.categories = form.data["categories"]
+        category_ids = [int(id) for id in form.data["categories"].split(",") if id.isdigit()]
+        course.categories_for_course = []
+        if category_ids is not None:
+            for category_id in category_ids:
+                category = Category.query.get(category_id)
+                course.categories_for_course.append(category)
 
         try:
             updated = course.to_dict()
@@ -181,9 +186,7 @@ def create_course():
             course_video=course_video_url,
         )
 
-        category_ids = [int(id) for id in form.data["categories"].split(",")]
-        print("-----------------------------category_ids----------------------")
-        print(category_ids)
+        category_ids = [int(id) for id in form.data["categories"].split(",") if id.isdigit()]
         if category_ids is None:
             course.categories_for_course = []
 
