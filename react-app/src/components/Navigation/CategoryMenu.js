@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoriesThunk } from "../../store/categories";
 
-function CategoryMenu() { // categories ?
+function CategoryMenu() { 
     const dispatch = useDispatch();
     const history = useHistory();
     const [showMenu, setShowMenu] = useState(false);

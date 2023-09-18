@@ -22,7 +22,6 @@ function UpdateCourse() {
     const user = useSelector(state => state.session.user);
     const whatYoullLearn = course?.whatYoullLearn?.split("|");
 
-    console.log('loaded course:', course);
     const categoriesInCourse = course?.categories?.map(category => category.name)
     const categoriesWithSets = {};
     const categories = useSelector(state => Object.values(state.categories).forEach(category => {

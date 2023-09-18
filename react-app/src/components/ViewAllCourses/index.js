@@ -10,12 +10,10 @@ import { useParams } from "react-router-dom";
 function ViewAllCourses() {
     const dispatch = useDispatch();
     const { categoryId } = useParams();
-    // console.log('categoryid:', categoryId)
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
         dispatch(browseCoursesThunk(categoryId)).then(() => setIsLoaded(true));
-        console.log("categoryId in component:", categoryId)
     }, [dispatch, categoryId]);
 
     const [cartLoaded, setCartLoaded] = useState(false);
