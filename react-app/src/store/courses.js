@@ -93,8 +93,8 @@ export const readAllTaughtCoursesThunk = () => async dispatch => {
 
 export const browseCoursesThunk = categoryId => async dispatch => {
     let res;
-    if (!isNaN(categoryId)) {
-        res = await fetch(`/api/category/${categoryId}`)
+    if (!isNaN(parseInt(categoryId))) {
+        res = await fetch(`/api/category/${parseInt(categoryId)}`)
     } else if (categoryId === "other") {
         res = await fetch("/api/category/other")
     } else {

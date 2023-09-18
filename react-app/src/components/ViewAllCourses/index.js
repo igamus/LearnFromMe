@@ -14,7 +14,8 @@ function ViewAllCourses() {
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-        dispatch(browseCoursesThunk(parseInt(categoryId))).then(() => setIsLoaded(true));
+        dispatch(browseCoursesThunk(categoryId)).then(() => setIsLoaded(true));
+        console.log("categoryId in component:", categoryId)
     }, [dispatch, categoryId]);
 
     const [cartLoaded, setCartLoaded] = useState(false);
