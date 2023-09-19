@@ -5,6 +5,10 @@
     align-items: center;
 }
 
+.loading {
+    cursor: wait;
+}
+
 .course-form {
     display: flex;
     flex-direction: column;

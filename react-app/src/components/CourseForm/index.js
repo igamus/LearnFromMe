@@ -29,6 +29,8 @@ function CourseForm({ type, starterForm, categoriesLoaded }) {
 
     const [disable, setDisable] = useState(true);
 
+    const [courseFormClass, setCourseFormClass] = useState("course-form-page");
+
     const handleSubmit = async e => {
         e.preventDefault();
         setErrors([]);
@@ -70,6 +72,7 @@ function CourseForm({ type, starterForm, categoriesLoaded }) {
         formData.append("course_video", courseVideo);
         formData.append("categories", categoryIds);
         setSubmissionLoading(true);
+        setCourseFormClass("course-form-page loading");
 
         if (type === "create") {
             try {
@@ -77,6 +80,7 @@ function CourseForm({ type, starterForm, categoriesLoaded }) {
                 history.push(`/learn/${newCourse.id}`);
             } catch(errors) {
                 setSubmissionLoading(false);
+                setCourseFormClass("course-form-page");
                 setErrors(errors.errors || ["An unexpected error occurred.", "If the error continues, please contact the developer."]);
             }
         }
@@ -86,6 +90,7 @@ function CourseForm({ type, starterForm, categoriesLoaded }) {
                 history.push(`/learn/${starterForm.id}`)
             } catch (errors) {
                 setSubmissionLoading(false);
+                setCourseFormClass("course-form-page");
                 setErrors([errors.error] || ["An unexpected error occurred.",  "If the error continues, please contact the developer."]);
             }
         }
@@ -98,7 +103,7 @@ function CourseForm({ type, starterForm, categoriesLoaded }) {
     }, [name, courseImage, price, whatYoullLearn1, courseVideo]);
 
     return categoriesLoaded && (
-        <div className="course-form-page">
+        <div className={courseFormClass}>
             <div className="course-heading">
                 <h1 style={{marginBottom: "0"}}>{type === "create" ? "Create" : "Update"} your course</h1>
                 <h4 style={{marginTop: "0"}}>* indicates a required field</h4>
