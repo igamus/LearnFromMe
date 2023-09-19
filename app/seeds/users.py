@@ -37,6 +37,16 @@ beacon = User(
     email='mavis@asu.edu',
     password='password'
 )
+mario = User(
+    name='Mario Mario',
+    email='ihatebowser@nintendo.jp',
+    password='password'
+)
+daniel = User(
+    name='Daniel Weltman',
+    email='palpatinedidnothingwrong@lucasfilms.disney',
+    password='password'
+)
 
 def seed_users():
     db.session.add(demo) # 1
@@ -46,6 +56,8 @@ def seed_users():
     db.session.add(dr_octopus) # 5
     db.session.add(puppy) # 6
     db.session.add(beacon) # 7
+    db.session.add(mario) # 8
+    db.session.add(daniel) # 9
     db.session.commit()
 
 
