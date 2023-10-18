@@ -1,7 +1,10 @@
 # LearnFromMe
 
-[LearnFromMe](https://learnfromme.onrender.com) is an eCommerce application modeled upon Udemy made with **React** and **Flask** where users can purchases and publish courses.
+[LearnFromMe](https://learnfromme.onrender.com) is an eCommerce application modeled upon Udemy made with **React** and **Flask** where users can purchase and publish courses.
 
+<div align="center">
+      <img src="https://github.com/igamus/LearnFromMe/assets/80405823/751acb23-8201-424e-84bc-4f9e3debac29" />
+</div>
 
 ## Getting started
 Visit the [live site](https://learnfromme.onrender.com) or
@@ -58,7 +61,9 @@ Visit the [live site](https://learnfromme.onrender.com) or
 ### Courses
 Users that are not logged in can browse courses for sale.
 
-![Browse all courses view](/readme-images/image.png)
+<div align="center">
+      <img src="/readme-images/image.png" />
+</div>
 
 A logged-in user can
 * Upload courses
@@ -68,7 +73,9 @@ A logged-in user can
 
 ### Cart
 
-![Cart view](/readme-images/image-1.png)
+<div align="center">
+      <img src="/readme-images/image-1.png" />
+</div>
 
 A logged in user can
 * Add courses to a shopping cart
@@ -76,6 +83,9 @@ A logged in user can
 * "Purchase" items (clear the cart)
 
 ### Categories
+<div align="center">
+      <img src="https://github.com/igamus/LearnFromMe/assets/80405823/d0c05e07-c73f-45cd-85c9-2dc12c4c2ff8" /> 
+</div>
 
 When creating and updating a course, users can add, remove, and update relevant course categories. LearnFromMe then lists the course within the catalogue of courses for the category (or categories) provided. If none are provided, LearnFromMe lists the course under "Other Courses."
 
